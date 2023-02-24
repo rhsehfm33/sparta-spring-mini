@@ -22,7 +22,7 @@ public class Study_Board extends Timestamped {
 
         public Study_Board(Study_BoardRequestDto dto){
             this.content=dto.getContent();
-            //this.member_id=dto.getMember_id()
-            //this.study_id=dto.getStudy_id()
+            //this.member=member
+            //this.study=study
         }
 }
