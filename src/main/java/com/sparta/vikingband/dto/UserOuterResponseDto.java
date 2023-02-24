@@ -19,7 +19,7 @@ public class UserOuterResponseDto {
 
     public UserOuterResponseDto(Member user) {
         this.id = user.getId();
-        this.username = user.getUsername();
+        this.username = user.getMemberName();
         this.email = user.getEmail();
         this.createdAt = user.getCreatedAt();
         this.modifiedAt = user.getModifiedAt();

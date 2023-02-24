@@ -1,14 +1,14 @@
 package com.sparta.vikingband.repository;
 
+import com.sparta.vikingband.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    Optional<Member> findByMemberName(String memberName);
 
-    Page<User> findAll(Pageable pageable);
+    Page<Member> findAll(Pageable pageable);
 }

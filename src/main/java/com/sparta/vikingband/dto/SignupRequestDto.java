@@ -1,6 +1,6 @@
 package com.sparta.vikingband.dto;
 
-import com.sparta.vikingband.enums.UserRoleEnum;
+import com.sparta.vikingband.enums.MemberRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class SignupRequestDto {
     private String email;
 
     @NotNull
-    private UserRoleEnum userRoleEnum;
+    private MemberRoleEnum memberRoleEnum;
 
     private String adminToken = "";
 }

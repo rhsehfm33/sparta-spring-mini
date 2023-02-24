@@ -1,7 +1,7 @@
 package com.sparta.vikingband.entity;
 
 import com.sparta.vikingband.dto.SignupRequestDto;
-import com.sparta.vikingband.enums.UserRoleEnum;
+import com.sparta.vikingband.enums.MemberRoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,7 @@ public class Member extends Timestamped {
     private Long id;
 
     @Column(nullable = false)
-    private String username; // TODO: 나중에 memberName으로
+    private String memberName; // TODO: 나중에 memberName으로
 
     private String email;
 
@@ -27,7 +27,7 @@ public class Member extends Timestamped {
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private UserRoleEnum role;
+    private MemberRoleEnum role;
 
     @OneToMany(mappedBy = "member")
     List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
@@ -45,9 +45,9 @@ public class Member extends Timestamped {
     List<Study> studyList = new ArrayList<>();
 
     public Member(SignupRequestDto signupRequestDto) {
-        this.username = signupRequestDto.getUsername();
+        this.memberName = signupRequestDto.getUsername();
         this.password = signupRequestDto.getPassword();
         this.email = signupRequestDto.getEmail();
-        this.role = signupRequestDto.getUserRoleEnum();
+        this.role = signupRequestDto.getMemberRoleEnum();
     }
 }

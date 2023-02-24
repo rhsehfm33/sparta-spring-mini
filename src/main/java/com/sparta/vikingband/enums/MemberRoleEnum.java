@@ -1,12 +1,12 @@
 package com.sparta.vikingband.enums;
 
-public enum UserRoleEnum {
+public enum MemberRoleEnum {
     USER("USER"),  // 사용자 권한
     ADMIN("ADMIN");  // 관리자 권한
 
     private final String authority;
 
-    UserRoleEnum(String authority) {
+    MemberRoleEnum(String authority) {
         this.authority = authority;
     }
 
