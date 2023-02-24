@@ -1,6 +1,6 @@
 package com.sparta.vikingband.dto;
 
-import com.sparta.vikingband.entity.User;
+import com.sparta.vikingband.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class UserOuterResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public UserOuterResponseDto(User user) {
+    public UserOuterResponseDto(Member user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
@@ -25,7 +25,7 @@ public class UserOuterResponseDto {
         this.modifiedAt = user.getModifiedAt();
     }
 
-    public static UserOuterResponseDto of(User user) {
+    public static UserOuterResponseDto of(Member user) {
         return new UserOuterResponseDto(user);
     }
 }

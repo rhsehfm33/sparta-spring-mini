@@ -6,13 +6,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@Entity(name = "study_register")
+@Entity(name = "StudyRegister")
 @NoArgsConstructor
-public class Register {
+public class StudyRegister {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private Member member;
+
+    @ManyToOne
+    private Study study;
 
     @Column
     private boolean isAccepted = false;

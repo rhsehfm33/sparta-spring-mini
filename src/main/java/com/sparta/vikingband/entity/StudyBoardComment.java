@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@Entity
+@Entity(name = "StudyBoardComment")
 @NoArgsConstructor
-public class Comment extends Timestamped {
+public class StudyBoardComment extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,8 +17,17 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private String content;
 
+    @ManyToOne
+    private StudyBoard studyBoard;
 
-    public Comment(CommentRequestDto requestDto) {
+    @ManyToOne
+    private Member member;
+
+    @ManyToOne
+    private Study study;
+
+
+    public StudyBoardComment(CommentRequestDto requestDto) {
         this.content = requestDto.getContent();
     }
 }

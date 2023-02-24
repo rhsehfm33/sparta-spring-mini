@@ -6,17 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Entity(name = "users")
+@Entity(name = "Member")
 @NoArgsConstructor
-public class User extends Timestamped {
+public class Member extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String username; // TODO: 나중에 memberName으로
 
     private String email;
 
@@ -27,7 +29,22 @@ public class User extends Timestamped {
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
-    public User(SignupRequestDto signupRequestDto) {
+    @OneToMany(mappedBy = "member")
+    List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<StudyBoard> studyBoardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<StudyRegister> studyRegisterList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<StudyWish> studyWishList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<Study> studyList = new ArrayList<>();
+
+    public Member(SignupRequestDto signupRequestDto) {
         this.username = signupRequestDto.getUsername();
         this.password = signupRequestDto.getPassword();
         this.email = signupRequestDto.getEmail();

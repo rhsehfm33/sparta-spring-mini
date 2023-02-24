@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
-@Entity(name = "study_board")
+@Entity(name = "StudyBoard")
 @NoArgsConstructor
-public class Study_Board extends Timestamped {
+public class StudyBoard extends Timestamped {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +20,16 @@ public class Study_Board extends Timestamped {
         @Column(nullable = false)
         private String content;
 
+        @ManyToOne
+        private Study study;
 
-        public Study_Board(Study_BoardRequestDto dto){
+        @ManyToOne
+        private Member member;
+
+        @OneToMany(mappedBy = "studyBoard")
+        List<StudyBoardComment> studyBoardCommentList;
+
+        public StudyBoard(Study_BoardRequestDto dto){
             this.content=dto.getContent();
             //this.member=member
             //this.study=study

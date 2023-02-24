@@ -6,12 +6,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@Entity(name = "study_wish")
+@Entity(name = "StudyWish")
 @NoArgsConstructor
-public class Wish {
-
+public class StudyWish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Member member;
+
+    @ManyToOne
+    private Study study;
 }

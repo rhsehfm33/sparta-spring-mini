@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
-@Entity(name = "study")
+@Entity(name = "Study")
 @NoArgsConstructor
 public class Study extends Timestamped {
     @Id
@@ -30,4 +31,19 @@ public class Study extends Timestamped {
 
     @Column(nullable = false)
     private int maxPersonnel;
+
+    @ManyToOne
+    private Member member;
+
+    @OneToMany(mappedBy = "study")
+    List<StudyBoardComment> studyBoardCommentList;
+
+    @OneToMany(mappedBy = "study")
+    List<StudyBoard> studyBoardList;
+
+    @OneToMany(mappedBy = "study")
+    List<StudyRegister> studyRegisterList;
+
+    @OneToMany(mappedBy = "study")
+    List<StudyWish> studyWishList;
 }
