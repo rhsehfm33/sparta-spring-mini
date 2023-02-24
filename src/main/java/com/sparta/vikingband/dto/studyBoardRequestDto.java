@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.validation.constraints.Size;
 
 @Getter
-   public class Study_BoardRequestDto {
+   public class studyBoardRequestDto {
        @Size(max=255)
        private String content;
 

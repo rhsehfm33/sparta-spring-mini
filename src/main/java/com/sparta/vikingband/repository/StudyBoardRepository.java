@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudyBoardRepository extends JpaRepository<StudyBoard, Long> {
-    //생성 시 사용
+    //생성 시 사용, 그 전에 Userdetail.getmembername을 받아서 repository
     Optional<StudyBoard> findByIdAndStudyId(Long id, Long studyId);
     //수정 시 사용
     Optional<StudyBoard> findByIdAndMemberId(Long id, Long memberId);
