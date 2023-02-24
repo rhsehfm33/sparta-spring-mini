@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserOuterResponseDto {
+public class MemberOuterResponseDto {
     private Long id;
     private String username;
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public UserOuterResponseDto(Member user) {
+    public MemberOuterResponseDto(Member user) {
         this.id = user.getId();
         this.username = user.getMemberName();
         this.email = user.getEmail();
@@ -25,7 +25,7 @@ public class UserOuterResponseDto {
         this.modifiedAt = user.getModifiedAt();
     }
 
-    public static UserOuterResponseDto of(Member user) {
-        return new UserOuterResponseDto(user);
+    public static MemberOuterResponseDto of(Member user) {
+        return new MemberOuterResponseDto(user);
     }
 }
