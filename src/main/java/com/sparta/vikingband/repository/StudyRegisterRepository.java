@@ -18,6 +18,19 @@ public interface StudyRegisterRepository extends JpaRepository<StudyRegister, Lo
     Optional<StudyRegister> findById(Long id);
 
     /**
+     * 모든 등록 내용 가져오기
+     * @return List{StudyRegister}
+     */
+    List<StudyRegister> findAll();
+
+    /**
+     * 모든 등록 내용 가져오기
+     * @param pageable
+     * @return Page{StudyRegister}
+     */
+    Page<StudyRegister> findAll(Pageable pageable);
+
+    /**
      * 회원이 가입 신청한 스터디 목록 출력
      * @param memberId
      * @return

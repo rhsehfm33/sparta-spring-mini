@@ -18,13 +18,26 @@ public interface StudyWishRepository extends JpaRepository<StudyWish, Long> {
     Optional<StudyWish> findById(Long id);
 
     /**
+     * 모든 찜하기 내용 불러오기
+     * @return List{studyWish}
+     */
+    List<StudyWish> findAll();
+
+    /**
+     * 모든 찜하기 내용 불러오기
+     * @oaram pageable
+     * @return Page{studyWish}
+     */
+    Page<StudyWish> findAll(Pageable pageable);
+
+    /**
      * 회원이 찜한 스터디 목록 출력
      * @param memberId
      * @return
      */
-    List<StudyWish> findAllById(Long memberId);
+    List<StudyWish> findAllByMemberId(Long memberId);
 
-    Page<StudyWish> findAllById(Pageable pageable);
+    Page<StudyWish> findAllByMemberId(Pageable pageable);
 
 
 }
