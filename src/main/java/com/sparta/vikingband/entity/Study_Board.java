@@ -1,5 +1,6 @@
 package com.sparta.vikingband.entity;
 
+import com.sparta.vikingband.dto.Study_BoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,14 +16,13 @@ public class Study_Board extends Timestamped {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Size(max=255)
         @Column(nullable = false)
         private String content;
 
 
-        public Study_Board(Study_BoardRequestDto dto, Long member_id, Long study_id){
-            //this.content=dto.getContent;
-            //this.member_id=dto.getMember.getId()
-            //this.study_id=dto.getStudy.getId()
+        public Study_Board(Study_BoardRequestDto dto){
+            this.content=dto.getContent();
+            //this.member_id=dto.getMember_id()
+            //this.study_id=dto.getStudy_id()
         }
 }
