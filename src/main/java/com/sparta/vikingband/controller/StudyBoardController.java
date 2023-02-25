@@ -12,12 +12,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/study_boards")
 @RequiredArgsConstructor
 public class StudyBoardController {
     private final StudyBoardService studyBoardService;
 
-    @PostMapping("/study_boards/{studyid}")
+    @PostMapping("/{studyid}")
     public ApiResponse<StudyBoardResponseDto> createStudyBoard
             (@PathVariable Long studyid,
              @RequestBody StudyBoardRequestDto requestDto,
@@ -25,20 +25,20 @@ public class StudyBoardController {
     {
         return ApiResponse.successOf(HttpStatus.OK, studyBoardService.createStudyBoard(studyid,requestDto,userDetails));
     }
-    @GetMapping("/study_boards")
+    @GetMapping
     public ApiResponse<StudyBoardWholeResponseDto> getStudyBoard()
     {
         return ApiResponse.successOf(HttpStatus.OK,studyBoardService.getStudyBoards());
     }
 
-    @GetMapping("/study_boards/{boardid}")
+    @GetMapping("/{boardid}")
     public ApiResponse<StudyBoardResponseDto> getIdStudyBoard
             (@PathVariable Long boardid)
     {
         return ApiResponse.successOf(HttpStatus.OK,studyBoardService.getIdStudyBoard(boardid));
     }
 
-    @PutMapping("/study_boards/{boardid}")
+    @PutMapping("/{boardid}")
     public ApiResponse<StudyBoardResponseDto> updateStudyBoard
             (@PathVariable Long boardid,
              @RequestBody StudyBoardRequestDto requestDto,
@@ -47,7 +47,7 @@ public class StudyBoardController {
         return ApiResponse.successOf(HttpStatus.OK,studyBoardService.updateStudyBoard(boardid,requestDto,userDetails));
     }
 
-    @DeleteMapping("/study_boards/{boardid}")
+    @DeleteMapping("/{boardid}")
     public ApiResponse<StudyBoardResponseDto> deleteStudyBoard
             (@PathVariable Long boardid,
              @AuthenticationPrincipal UserDetailsImpl userDetails)

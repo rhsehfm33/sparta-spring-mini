@@ -30,9 +30,9 @@ public class StudyBoardService {
                 StudyBoardRequestDto requestDto,
                 UserDetailsImpl userDetailsImpl)
        {
-       //로그인 된 유저들인 만든 특정 스터디에 게시글을 남길 때
+       //로그인 된 유저들이 만든 특정 스터디에 게시글을 남길 때
         Study study = studyRepository.findByIdAndMemberId(studyId, userDetailsImpl.getMember().getId()).orElseThrow(
-                ()-> new EntityNotFoundException(ErrorMessage.Study_NOT_FOUND.getMessage())
+                ()-> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
                 );
        StudyBoard studyBoard = studyBoardRepository.save(new StudyBoard(requestDto,userDetailsImpl.getMember(),study));
        return StudyBoardResponseDto.of(studyBoard);
@@ -41,7 +41,7 @@ public class StudyBoardService {
     @Transactional(readOnly = true)
     public StudyBoardResponseDto getIdStudyBoard(Long studyboardId){
            StudyBoard studyBoard = studyBoardRepository.findById(studyboardId).orElseThrow(
-                   ()-> new EntityNotFoundException(ErrorMessage.Study_Board_NOT_FOUND.getMessage())
+                   ()-> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND_MESSAGE.getMessage())
            );
            return StudyBoardResponseDto.of(studyBoard);
     }
@@ -83,7 +83,7 @@ public class StudyBoardService {
                         ()->new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
                 )
                 : studyBoardRepository.findById(studyboardId).orElseThrow(
-                ()->new EntityNotFoundException(ErrorMessage.Study_Board_NOT_FOUND.getMessage())
+                ()->new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND_MESSAGE.getMessage())
         );
     }
 }
