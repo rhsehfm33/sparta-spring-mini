@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Entity(name = "StudyRegister")
 @NoArgsConstructor
-public class StudyRegister {
+public class StudyRegist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +22,15 @@ public class StudyRegister {
 
     @Column
     private boolean isAccepted = false;
+
+    public StudyRegist(Member member, Study study) {
+        this.member = member;
+        this.study = study;
+    }
+
+    public void toggleAccept() {
+        isAccepted = !isAccepted;
+    }
+
+
 }
