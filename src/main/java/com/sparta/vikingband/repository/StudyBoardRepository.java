@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface StudyBoardRepository extends JpaRepository<StudyBoard, Long> {
     //생성 시 사용, 그 전에 Userdetail.getmembername을 받아서 repository
     Optional<StudyBoard> findByIdAndStudyId(Long id, Long studyId);
+    //Optional<StudyBoard> findByIdAndMembername(Long id, String membername);
     //수정 시 사용
     Optional<StudyBoard> findByIdAndMemberId(Long id, Long memberId);
     //해당Member의 스터디 보드 모두 조회

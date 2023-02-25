@@ -11,9 +11,8 @@ import java.util.Optional;
 public interface StudyRepository extends JpaRepository<Study, Long> {
     Optional<Study> findById(Long studyId);
 
-    //진규 추가
     Optional<Study> findByIdAndMemberId(Long studyId, Long memberId);
-
+   // Optional<Study> findByIdAndMembername(Long studyId, String membername);
 
     Page<Study> findByOrderByCreatedAtDesc(Pageable pageable);
 
