@@ -42,7 +42,7 @@ public class StudyBoardCommentService {
         );
 
         StudyBoard studyBoard = studyBoardRepository.findById(studyBoardId).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND_MESSAGE.getMessage())
+                () -> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND.getMessage())
         );
 
         StudyBoardComment newStudyBoardComment = new StudyBoardComment(requestDto, member, studyBoard.getStudy(), studyBoard);
