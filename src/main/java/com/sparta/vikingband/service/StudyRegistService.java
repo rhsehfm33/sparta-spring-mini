@@ -1,6 +1,5 @@
 package com.sparta.vikingband.service;
 
-import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyRegistRequestDto;
 import com.sparta.vikingband.dto.StudyRegistResponseDto;
 import com.sparta.vikingband.entity.Member;
@@ -13,7 +12,6 @@ import com.sparta.vikingband.repository.StudyRegistRepository;
 import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -39,7 +37,7 @@ public class StudyRegistService {
     public StudyRegistResponseDto makeRegist(StudyRegistRequestDto studyRegistRequestDto, UserDetailsImpl userDetails) {
 
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
-            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+            () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
         Study study = studyRepository.findById(studyRegistRequestDto.getStudy().getId()).orElseThrow(
@@ -57,7 +55,7 @@ public class StudyRegistService {
     public void deleteRegist(Long studyRegistId, UserDetailsImpl userDetails) throws AccessDeniedException {
 
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
-            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+            () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
         StudyRegist studyRegist = studyRegistRepository.findById(studyRegistId).orElseThrow(
@@ -75,7 +73,7 @@ public class StudyRegistService {
     public void approveRegist(Long studyRegistId, UserDetailsImpl userDetails) throws AccessDeniedException {
 
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
-            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+            () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
         StudyRegist studyRegist = studyRegistRepository.findById(studyRegistId).orElseThrow(
@@ -93,7 +91,7 @@ public class StudyRegistService {
     public void denyRegist(Long studyRegistId, UserDetailsImpl userDetails) throws AccessDeniedException {
 
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
-            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+            () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
         StudyRegist studyRegist = studyRegistRepository.findById(studyRegistId).orElseThrow(

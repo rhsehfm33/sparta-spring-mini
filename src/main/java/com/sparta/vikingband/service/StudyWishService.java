@@ -1,6 +1,5 @@
 package com.sparta.vikingband.service;
 
-import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyWishRequestDto;
 import com.sparta.vikingband.dto.StudyWishResponseDto;
 import com.sparta.vikingband.entity.Member;
@@ -13,7 +12,6 @@ import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.repository.StudyWishRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -33,7 +31,7 @@ public class StudyWishService {
                                              UserDetailsImpl userDetails) {
         // 인증된 사용자 이름으로 사용자 정보를 DB에서 조회
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
-            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+            () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
         // 입력된 스터디 ID 정보를 DB에서 조회
@@ -51,7 +49,7 @@ public class StudyWishService {
     public void deleteWish(Long studyWishId, UserDetailsImpl userDetails) throws AccessDeniedException {
 
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
-            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+            () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
         StudyWish studyWish = studyWishRepository.findById(studyWishId).orElseThrow(

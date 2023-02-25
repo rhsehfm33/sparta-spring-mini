@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Service
@@ -81,7 +80,7 @@ public class StudyBoardService {
     private StudyBoard getstudyboard (Long studyboardId, Member member){
         return (member.getRole()== MemberRoleEnum.USER) ?
                 studyBoardRepository.findByIdAndMemberId(studyboardId, member.getId()).orElseThrow(
-                        ()->new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+                        ()->new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
                 )
                 : studyBoardRepository.findById(studyboardId).orElseThrow(
                 ()->new EntityNotFoundException(ErrorMessage.Study_Board_NOT_FOUND.getMessage())
