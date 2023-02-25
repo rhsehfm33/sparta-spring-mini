@@ -1,6 +1,6 @@
 package com.sparta.vikingband.entity;
 
-import com.sparta.vikingband.dto.CommentRequestDto;
+import com.sparta.vikingband.dto.StudyBoardCommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,7 +27,7 @@ public class StudyBoardComment extends Timestamped {
     private Study study;
 
 
-    public StudyBoardComment(CommentRequestDto requestDto) {
+    public StudyBoardComment(StudyBoardCommentRequestDto requestDto) {
         this.content = requestDto.getContent();
     }
 }

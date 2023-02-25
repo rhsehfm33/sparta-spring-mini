@@ -4,6 +4,6 @@ import lombok.Getter;
 
 
 @Getter
-public class CommentRequestDto {
+public class StudyBoardCommentRequestDto {
     private String content;
 }
