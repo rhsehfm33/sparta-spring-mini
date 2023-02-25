@@ -2,6 +2,7 @@ package com.sparta.vikingband.service;
 
 import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyRegistRequestDto;
+import com.sparta.vikingband.dto.StudyRegistResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyRegist;
@@ -27,15 +28,15 @@ public class StudyRegistService {
     private final StudyRepository studyRepository;
     private final StudyRegistRepository studyRegistRepository;
 
+
     /**
-     * 가입 신청
+     *
      * @param studyRegistRequestDto
      * @param userDetails
      * @return
      */
-
     @Transactional
-    public ApiResponse<StudyRegist> makeRegist(StudyRegistRequestDto studyRegistRequestDto, UserDetailsImpl userDetails) {
+    public StudyRegistResponseDto makeRegist(StudyRegistRequestDto studyRegistRequestDto, UserDetailsImpl userDetails) {
 
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
@@ -48,16 +49,10 @@ public class StudyRegistService {
         StudyRegist newStudyRegist = new StudyRegist(member, study);
         studyRegistRepository.save(newStudyRegist);
 
-        return ApiResponse.successOf(HttpStatus.ACCEPTED, newStudyRegist);
+        return StudyRegistResponseDto.of(newStudyRegist);
     }
 
 
-    /**
-     * 가입 취소
-     * @param studyRegistId
-     * @param userDetails
-     * @throws AccessDeniedException
-     */
     @Transactional
     public void deleteRegist(Long studyRegistId, UserDetailsImpl userDetails) throws AccessDeniedException {
 
@@ -92,6 +87,24 @@ public class StudyRegistService {
         }
 
         studyRegist.toggleAccept();
+    }
+
+    @Transactional
+    public void denyRegist(Long studyRegistId, UserDetailsImpl userDetails) throws AccessDeniedException {
+
+        Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
+            () -> new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+        );
+
+        StudyRegist studyRegist = studyRegistRepository.findById(studyRegistId).orElseThrow(
+            () -> new EntityNotFoundException(ErrorMessage.REGIST_NOT_FOUND.getMessage())
+        );
+
+        if (member.getRole() != MemberRoleEnum.ADMIN && studyRegist.getMember() != member) {
+            throw new AccessDeniedException(ErrorMessage.ACCESS_DENIED.getMessage());
+        }
+
+        studyRegistRepository.delete(studyRegist);
     }
 
 

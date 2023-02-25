@@ -2,6 +2,7 @@ package com.sparta.vikingband.service;
 
 import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyWishRequestDto;
+import com.sparta.vikingband.dto.StudyWishResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.StudyWish;
 import com.sparta.vikingband.entity.Study;
@@ -28,7 +29,7 @@ public class StudyWishService {
     private final StudyWishRepository studyWishRepository;
 
     @Transactional
-    public ApiResponse<StudyWish> createWish(StudyWishRequestDto studyWishRequestDto,
+    public StudyWishResponseDto createWish(StudyWishRequestDto studyWishRequestDto,
                                              UserDetailsImpl userDetails) {
         // 인증된 사용자 이름으로 사용자 정보를 DB에서 조회
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
@@ -43,7 +44,7 @@ public class StudyWishService {
         StudyWish newStudyWish = new StudyWish(member, study);
         studyWishRepository.save(newStudyWish);
 
-        return ApiResponse.successOf(HttpStatus.ACCEPTED, newStudyWish);
+        return StudyWishResponseDto.of(newStudyWish);
     }
 
     @Transactional
