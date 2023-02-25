@@ -3,6 +3,7 @@ package com.sparta.vikingband.repository;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyBoard;
+import com.sparta.vikingband.entity.StudyBoardComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
