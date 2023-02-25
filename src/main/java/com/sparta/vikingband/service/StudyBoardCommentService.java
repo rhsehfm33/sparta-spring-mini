@@ -62,7 +62,7 @@ public class StudyBoardCommentService {
 
 
     @Transactional
-    public StudyBoardCommentResponseDto updateComment(
+    public StudyBoardCommentResponseDto updateStudyBoardComment(
             Long studyBoardCommentId,
             StudyBoardCommentRequestDto requestDto,
             UserDetailsImpl userDetailsImpl
@@ -83,7 +83,7 @@ public class StudyBoardCommentService {
 
 
     @Transactional
-    public void deleteComment(
+    public void deleteStudyBoardComment(
             Long studyBoardCommentId,
             UserDetailsImpl userDetailsImpl
     ) {
