@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class StudyBoardService {
                 StudyBoardRequestDto requestDto,
                 UserDetailsImpl userDetailsImpl)
        {
-       //로그인 된 유저가 특정 스터디에 게시글을 남길 때
+       //로그인 된 유저들인 만든 특정 스터디에 게시글을 남길 때
         Study study = studyRepository.findByIdAndMemberId(studyId, userDetailsImpl.getMember().getId()).orElseThrow(
                 ()-> new EntityNotFoundException(ErrorMessage.Study_NOT_FOUND.getMessage())
                 );
