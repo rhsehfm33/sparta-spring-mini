@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class StudyBoardController {
     private final StudyBoardService studyBoardService;
 
-
     @PostMapping("/study_boards/{studyid}")
     public ApiResponse<StudyBoardResponseDto> createStudyBoard
             (@PathVariable Long studyid,
@@ -27,7 +26,8 @@ public class StudyBoardController {
         return ApiResponse.successOf(HttpStatus.OK, studyBoardService.createStudyBoard(studyid,requestDto,userDetails));
     }
     @GetMapping("/study_boards")
-    public ApiResponse<StudyBoardWholeResponseDto> getStudyBoard() {
+    public ApiResponse<StudyBoardWholeResponseDto> getStudyBoard()
+    {
         return ApiResponse.successOf(HttpStatus.OK,studyBoardService.getStudyBoards());
     }
 
