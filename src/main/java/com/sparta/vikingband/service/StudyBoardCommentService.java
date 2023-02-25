@@ -51,8 +51,8 @@ public class StudyBoardCommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<StudyBoardCommentResponseDto> getStudyBoardComments() {
-        List<StudyBoardComment> studyBoardCommentList = studyBoardCommentRepository.findAll();
+    public List<StudyBoardCommentResponseDto> getStudyBoardComments(Long studyBoardId) {
+        List<StudyBoardComment> studyBoardCommentList = studyBoardCommentRepository.findAllByStudyBoard_Id(studyBoardId);
         List<StudyBoardCommentResponseDto> studyBoardCommentResponseDtoList = studyBoardCommentList.stream()
                 .map(studyBoardComment -> StudyBoardCommentResponseDto.of(studyBoardComment))
                 .collect(Collectors.toList());

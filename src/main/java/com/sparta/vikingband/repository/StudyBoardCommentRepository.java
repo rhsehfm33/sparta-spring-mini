@@ -21,4 +21,6 @@ public interface StudyBoardCommentRepository extends JpaRepository<StudyBoardCom
     List<StudyBoardComment> findAllByStudy(Study study);
 
     List<StudyBoardComment> findAllByStudyBoard(StudyBoard studyBoard);
+
+    List<StudyBoardComment> findAllByStudyBoard_Id(Long studyBoardId);
 }
