@@ -83,7 +83,7 @@ public class StudyBoardService {
                         ()->new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
                 )
                 : studyBoardRepository.findById(studyboardId).orElseThrow(
-                ()->new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND_MESSAGE.getMessage())
+                ()->new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND.getMessage())
         );
     }
 }
