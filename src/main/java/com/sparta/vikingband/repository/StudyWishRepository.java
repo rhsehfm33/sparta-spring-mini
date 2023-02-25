@@ -37,7 +37,7 @@ public interface StudyWishRepository extends JpaRepository<StudyWish, Long> {
      */
     List<StudyWish> findAllByMemberId(Long memberId);
 
-    Page<StudyWish> findAllByMemberId(Pageable pageable);
+//    Page<StudyWish> findAllByMemberId(Pageable pageable); // TODO: complie에러 잡기
 
 
 }

@@ -37,7 +37,7 @@ public interface StudyRegisterRepository extends JpaRepository<StudyRegister, Lo
      */
     List<StudyRegister> findAllById(Long memberId);
 
-    Page<StudyRegister> findAllById(Pageable pageable);
+//    Page<StudyRegister> findAllById(Pageable pageable);   // TODO: compile에러 잡기
 
 }
 
