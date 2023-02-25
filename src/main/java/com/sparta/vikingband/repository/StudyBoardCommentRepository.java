@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudyBoardCommentRepository extends JpaRepository<StudyBoardComment, Long> {
-
-
     Optional<StudyBoardComment> findByIdAndStudyBoard_Id(Long id, Long studyBoard_Id);
 
     Optional<StudyBoardComment> findByIdAndStudyId(Long id, Long studyId);

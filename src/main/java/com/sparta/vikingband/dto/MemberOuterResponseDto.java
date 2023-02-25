@@ -17,12 +17,12 @@ public class MemberOuterResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public MemberOuterResponseDto(Member user) {
-        this.id = user.getId();
-        this.username = user.getMemberName();
-        this.email = user.getEmail();
-        this.createdAt = user.getCreatedAt();
-        this.modifiedAt = user.getModifiedAt();
+    public MemberOuterResponseDto(Member member) {
+        this.id = member.getId();
+        this.username = member.getMemberName();
+        this.email = member.getEmail();
+        this.createdAt = member.getCreatedAt();
+        this.modifiedAt = member.getModifiedAt();
     }
 
     public static MemberOuterResponseDto of(Member user) {
