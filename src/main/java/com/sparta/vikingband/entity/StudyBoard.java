@@ -1,6 +1,6 @@
 package com.sparta.vikingband.entity;
 
-import com.sparta.vikingband.dto.studyBoardRequestDto;
+import com.sparta.vikingband.dto.StudyBoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,9 +29,13 @@ public class StudyBoard extends Timestamped {
         @OneToMany(mappedBy = "studyBoard", cascade=CascadeType.REMOVE)
         List<StudyBoardComment> studyBoardCommentList;
 
-        public StudyBoard(studyBoardRequestDto dto, Member member, Study study){
+        public StudyBoard(StudyBoardRequestDto dto, Member member, Study study){
             this.content=dto.getContent();
             this.member=member;
             this.study=study;
+        }
+
+        public void update(StudyBoardRequestDto dto){
+                this.content= dto.getContent();
         }
 }
