@@ -1,6 +1,5 @@
 package com.sparta.vikingband.service;
 
-import com.sparta.vikingband.dto.StudyBoardCommentRequestDto;
 import com.sparta.vikingband.dto.StudyBoardRequestDto;
 import com.sparta.vikingband.dto.StudyBoardResponseDto;
 import com.sparta.vikingband.dto.StudyBoardWholeResponseDto;
@@ -9,7 +8,6 @@ import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyBoard;
 import com.sparta.vikingband.enums.ErrorMessage;
 import com.sparta.vikingband.enums.MemberRoleEnum;
-import com.sparta.vikingband.repository.MemberRepository;
 import com.sparta.vikingband.repository.StudyBoardRepository;
 import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Service
@@ -25,7 +24,6 @@ import java.util.List;
 public class StudyBoardService {
         private final StudyRepository studyRepository;
         private final StudyBoardRepository studyBoardRepository;
-        private final MemberRepository memberRepository;
 
        @Transactional
        public StudyBoardResponseDto createStudyBoard
@@ -50,7 +48,7 @@ public class StudyBoardService {
     }
 
     @Transactional(readOnly = true)
-    public StudyBoardWholeResponseDto getstudyBoards(){
+    public StudyBoardWholeResponseDto getStudyBoards(){
        StudyBoardWholeResponseDto dto = new StudyBoardWholeResponseDto();
        List<StudyBoard>studyboardList = studyBoardRepository.findAll();
        for (StudyBoard studyBoard : studyboardList){
@@ -60,8 +58,8 @@ public class StudyBoardService {
     }
 
     @Transactional
-    public StudyBoardResponseDto update(
-            Long studyboardId,
+    public StudyBoardResponseDto updateStudyBoard
+            (Long studyboardId,
             StudyBoardRequestDto requestDto,
             UserDetailsImpl userDetailsImpl)
     {
@@ -71,8 +69,8 @@ public class StudyBoardService {
     }
 
     @Transactional
-    public void delete(
-            Long studyboardId,
+    public void deleteStudyBoard
+            (Long studyboardId,
             UserDetailsImpl userDetailsImpl)
     {
         StudyBoard studyBoard = getstudyboard(studyboardId, userDetailsImpl.getMember());
