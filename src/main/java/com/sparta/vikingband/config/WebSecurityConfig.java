@@ -40,9 +40,7 @@ public class WebSecurityConfig {
 
         return (web) -> web.ignoring()
                 .requestMatchers(PathRequest.toH2Console())
-                .antMatchers("/api/v1/auth/**","/",
-                        "/v2/api-docs","/v3/api-docs","/swagger-ui*/**","/swagger-resources/**"
-                        ,"/webjars/**","/swagger/**","/favicon.ico");
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Bean
@@ -52,9 +50,11 @@ public class WebSecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //회원가입, 로그인,조회까지는 security 인증 없이도 가능함
-        http.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/board").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/board/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/docs").permitAll()
+                .antMatchers("/api/members/**").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/board").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/board/**").permitAll()
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정
                 .and()

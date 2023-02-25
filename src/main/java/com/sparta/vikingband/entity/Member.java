@@ -18,7 +18,7 @@ public class Member extends Timestamped {
     private Long id;
 
     @Column(nullable = false)
-    private String memberName; // TODO: 나중에 memberName으로
+    private String memberName;
 
     private String email;
 
@@ -27,7 +27,7 @@ public class Member extends Timestamped {
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private MemberRoleEnum role;
+    private MemberRoleEnum role = MemberRoleEnum.USER;
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
@@ -48,6 +48,5 @@ public class Member extends Timestamped {
         this.memberName = signupRequestDto.getUsername();
         this.password = signupRequestDto.getPassword();
         this.email = signupRequestDto.getEmail();
-        this.role = signupRequestDto.getMemberRoleEnum();
     }
 }
