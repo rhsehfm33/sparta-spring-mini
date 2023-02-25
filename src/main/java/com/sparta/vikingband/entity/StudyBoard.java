@@ -26,7 +26,7 @@ public class StudyBoard extends Timestamped {
         @ManyToOne(fetch = LAZY)
         private Member member;
 
-        @OneToMany(mappedBy = "studyBoard")
+        @OneToMany(mappedBy = "studyBoard", cascade=CascadeType.REMOVE)
         List<StudyBoardComment> studyBoardCommentList;
 
         public StudyBoard(studyBoardRequestDto dto, Member member, Study study){

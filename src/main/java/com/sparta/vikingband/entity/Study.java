@@ -35,15 +35,15 @@ public class Study extends Timestamped {
     @ManyToOne
     private Member member;
 
-    @OneToMany(mappedBy = "study")
+    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
     List<StudyBoardComment> studyBoardCommentList;
 
-    @OneToMany(mappedBy = "study")
+    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
     List<StudyBoard> studyBoardList;
 
-    @OneToMany(mappedBy = "study")
+    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
     List<StudyRegister> studyRegisterList;
 
-    @OneToMany(mappedBy = "study")
+    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
     List<StudyWish> studyWishList;
 }

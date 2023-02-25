@@ -29,19 +29,19 @@ public class Member extends Timestamped {
     @Enumerated(value = EnumType.STRING)
     private MemberRoleEnum role;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<StudyBoard> studyBoardList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<StudyRegister> studyRegisterList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<StudyWish> studyWishList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<Study> studyList = new ArrayList<>();
 
     public Member(SignupRequestDto signupRequestDto) {
