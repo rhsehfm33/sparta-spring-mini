@@ -1,5 +1,6 @@
 package com.sparta.vikingband.entity;
 
+import com.sparta.vikingband.dto.StudyWishRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,9 @@ public class StudyWish {
 
     @ManyToOne
     private Study study;
+
+    public StudyWish(Member member, Study study) {
+        this.member = member;
+        this.study = study;
+    }
 }

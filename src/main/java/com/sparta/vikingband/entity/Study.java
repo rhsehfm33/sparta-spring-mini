@@ -42,7 +42,7 @@ public class Study extends Timestamped {
     List<StudyBoard> studyBoardList;
 
     @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
-    List<StudyRegister> studyRegisterList;
+    List<StudyRegist> studyRegistList;
 
     @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
     List<StudyWish> studyWishList;
