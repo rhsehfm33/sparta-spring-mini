@@ -80,7 +80,7 @@ public class StudyBoardService {
     private StudyBoard getstudyboard (Long studyboardId, Member member){
         return (member.getRole()== MemberRoleEnum.USER) ?
                 studyBoardRepository.findByIdAndMemberId(studyboardId, member.getId()).orElseThrow(
-                        ()->new EntityNotFoundException(ErrorMessage.USER_NOT_FOUND.getMessage())
+                        ()->new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
                 )
                 : studyBoardRepository.findById(studyboardId).orElseThrow(
                 ()->new EntityNotFoundException(ErrorMessage.Study_Board_NOT_FOUND.getMessage())

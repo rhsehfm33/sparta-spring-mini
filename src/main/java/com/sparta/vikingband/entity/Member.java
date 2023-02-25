@@ -17,7 +17,7 @@ public class Member extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String memberName;
 
     private String email;
@@ -36,7 +36,7 @@ public class Member extends Timestamped {
     List<StudyBoard> studyBoardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyRegister> studyRegisterList = new ArrayList<>();
+    List<StudyRegist> studyRegistList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
     List<StudyWish> studyWishList = new ArrayList<>();
