@@ -27,7 +27,20 @@ public class StudyBoardComment extends Timestamped {
     private Study study;
 
 
-    public StudyBoardComment(StudyBoardCommentRequestDto requestDto) {
+    public StudyBoardComment(
+            StudyBoardCommentRequestDto requestDto,
+            Member member,
+            Study study,
+            StudyBoard studyBoard
+    ) {
+        this.content = requestDto.getContent();
+        this.member = member;
+        this.study = study;
+        this.studyBoard = studyBoard;
+    }
+
+    public void update(StudyBoardCommentRequestDto requestDto) {
         this.content = requestDto.getContent();
     }
+
 }
