@@ -5,6 +5,7 @@ import com.sparta.vikingband.dto.LoginRequestDto;
 import com.sparta.vikingband.dto.MemberOuterResponseDto;
 import com.sparta.vikingband.dto.SignupRequestDto;
 import com.sparta.vikingband.service.MemberService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<MemberOuterResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ApiResponse<MemberOuterResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, @Parameter(hidden = true) HttpServletResponse response) {
         return ApiResponse.successOf(HttpStatus.OK, memberService.login(loginRequestDto, response));
     }
 }

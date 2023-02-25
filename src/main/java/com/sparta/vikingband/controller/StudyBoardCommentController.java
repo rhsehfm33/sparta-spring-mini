@@ -3,6 +3,7 @@ package com.sparta.vikingband.controller;
 import com.sparta.vikingband.dto.*;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyBoardCommentService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,7 +22,7 @@ public class StudyBoardCommentController {
     public ApiResponse<StudyBoardCommentResponseDto> createComment(
             @PathVariable Long studyBoardId,
             @RequestBody StudyBoardCommentRequestDto requestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         return ApiResponse.successOf(HttpStatus.CREATED, studyBoardCommentService.createStudyBoardComment(studyBoardId, requestDto, userDetailsImpl));
     }
@@ -35,7 +36,7 @@ public class StudyBoardCommentController {
     public ApiResponse<StudyBoardCommentResponseDto> updateComment(
             @PathVariable Long studyBoardCommentId,
             @RequestBody StudyBoardCommentRequestDto requestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         return ApiResponse.successOf(HttpStatus.OK, studyBoardCommentService.updateStudyBoardComment(studyBoardCommentId, requestDto, userDetailsImpl));
     }
@@ -43,7 +44,7 @@ public class StudyBoardCommentController {
     @DeleteMapping("/{studyBoardCommentId}")
     public ApiResponse<StudyResponseDto> deleteComment(
             @PathVariable Long studyBoardCommentId,
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         studyBoardCommentService.deleteStudyBoardComment(studyBoardCommentId, userDetailsImpl);
         return ApiResponse.successOf(HttpStatus.OK, null);
