@@ -41,7 +41,7 @@ public class StudyBoardService {
     @Transactional(readOnly = true)
     public StudyBoardResponseDto getIdStudyBoard(Long studyboardId){
            StudyBoard studyBoard = studyBoardRepository.findById(studyboardId).orElseThrow(
-                   ()-> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND_MESSAGE.getMessage())
+                   ()-> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND.getMessage())
            );
            return StudyBoardResponseDto.of(studyBoard);
     }
