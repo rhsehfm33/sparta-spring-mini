@@ -49,9 +49,9 @@ public class Member extends Timestamped {
     @OrderBy("createdAt DESC")
     Set<StudyBoardComment> studyBoardCommentSet = new LinkedHashSet<>();
 
-    public Member(SignupRequestDto signupRequestDto) {
+    public Member(SignupRequestDto signupRequestDto, String encodedPassword) {
         this.memberName = signupRequestDto.getUsername();
-        this.password = signupRequestDto.getPassword();
+        this.password = encodedPassword;
         this.email = signupRequestDto.getEmail();
     }
 }

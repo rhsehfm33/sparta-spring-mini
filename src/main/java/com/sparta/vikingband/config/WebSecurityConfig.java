@@ -4,6 +4,7 @@ import com.sparta.vikingband.jwt.JwtAuthFilter;
 import com.sparta.vikingband.jwt.JwtUtil;
 import com.sparta.vikingband.security.CustomAccessDeniedHandler;
 import com.sparta.vikingband.security.CustomAuthenticationEntryPoint;
+import com.sparta.vikingband.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     private final JwtUtil jwtUtil;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

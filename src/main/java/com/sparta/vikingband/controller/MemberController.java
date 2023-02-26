@@ -25,7 +25,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<MemberOuterResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, @Parameter(hidden = true) HttpServletResponse response) {
+    public ApiResponse<MemberOuterResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto, @Parameter(hidden = true) HttpServletResponse response) {
         return ApiResponse.successOf(HttpStatus.OK, memberService.login(loginRequestDto, response));
     }
 

@@ -9,6 +9,7 @@ public enum ErrorType {
     JWT_EXCEPTION("token invalid error"),
     ILLEGAL_ARGUMENT_EXCEPTION("wrong argument error"),
     ACCESS_DENIED_EXCEPTION("don't have authority to do so"),
+    BAD_CREDENTIALS_EXCEPTION("user's password is wrong"),
     AUTHENTICATION_EXCEPTION("authentication has failed");
 
     String description;
