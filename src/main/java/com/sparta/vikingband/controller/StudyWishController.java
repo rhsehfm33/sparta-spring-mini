@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/wish")
 public class StudyWishController {
 
-    private StudyWishService studyWishService;
+    private final StudyWishService studyWishService;
 
 //    @GetMapping("/{memberId}")
 //    public ApiResponse<List<StudyWishResponseDto>> getWishes(@PathVariable Long memberId) {

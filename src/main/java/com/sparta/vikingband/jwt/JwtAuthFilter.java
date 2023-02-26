@@ -26,7 +26,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String token = jwtUtil.resolveToken(request);
         //회원가입할 때는 토큰이 필요하지 않으므로 분기처리 필요
-        if(jwtUtil.validateToken(token)){
+        if (jwtUtil.validateToken(token)) {
             Claims info = jwtUtil.getUserInfoFromToken(token);
             setAuthentication(info.getSubject());
         }

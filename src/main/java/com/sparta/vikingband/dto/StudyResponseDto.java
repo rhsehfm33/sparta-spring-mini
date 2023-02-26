@@ -1,6 +1,7 @@
 package com.sparta.vikingband.dto;
 
 import com.sparta.vikingband.entity.Study;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class StudyResponseDto {
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
 
-    StudyResponseDto(Study study) {
+    public StudyResponseDto(Study study) {
         this.author = AuthorResponseDto.of(study.getMember());
         this.studyId = study.getId();
         this.likes = study.getStudyWishSet().size();

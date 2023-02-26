@@ -1,12 +1,11 @@
 package com.sparta.vikingband.service;
 
-import com.sparta.vikingband.dto.StudyBoardResponseDto;
 import com.sparta.vikingband.dto.StudyRequestDto;
 import com.sparta.vikingband.dto.StudyResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.enums.ErrorMessage;
-import com.sparta.vikingband.enums.ErrorType;
+import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.repository.MemberRepository;
 import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
@@ -58,6 +57,16 @@ public class StudyService {
 
 
         return studyResponseDtoList;
+    }
+
+    public List<StudyResponseDto> getStudiesByQueryCondition(String keyword, SortType sortType) {
+        if (sortType.equals(SortType.WISH)) {
+            return studyRepository.findAllByKeywordOrderByStudyWishSetCountDesc(keyword);
+        }
+        else if (sortType.equals(SortType.CREATED_AT)){
+            return studyRepository.findByTitleContainingOrderByCreatedAtDesc(keyword);
+        }
+            throw new IllegalArgumentException(ErrorMessage.WRONG_STUDY_QUERY_CONDITION.getMessage());
     }
 
     @Transactional

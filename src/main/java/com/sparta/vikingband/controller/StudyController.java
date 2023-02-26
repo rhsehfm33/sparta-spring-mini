@@ -3,6 +3,7 @@ package com.sparta.vikingband.controller;
 import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyRequestDto;
 import com.sparta.vikingband.dto.StudyResponseDto;
+import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -36,6 +37,14 @@ public class StudyController {
     @GetMapping
     public ApiResponse<List<StudyResponseDto>> getStudies() {
         return ApiResponse.successOf(HttpStatus.OK, studyService.getStudies());
+    }
+
+    @GetMapping("/queries")
+    public ApiResponse<List<StudyResponseDto>> getStudiesByQueryCondition(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "recent") SortType sortType
+    ) {
+        return ApiResponse.successOf(HttpStatus.OK, studyService.getStudiesByQueryCondition(keyword, sortType));
     }
 
     @PutMapping("/{studyId}")
