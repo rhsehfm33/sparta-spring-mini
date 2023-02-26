@@ -2,7 +2,6 @@ package com.sparta.vikingband.service;
 
 import com.sparta.vikingband.dto.StudyRegistRequestDto;
 import com.sparta.vikingband.dto.StudyRegistResponseDto;
-import com.sparta.vikingband.dto.StudyResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyRegist;
@@ -14,12 +13,10 @@ import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.nio.file.AccessDeniedException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,15 +25,6 @@ public class StudyRegistService {
     private final MemberRepository memberRepository;
     private final StudyRepository studyRepository;
     private final StudyRegistRepository studyRegistRepository;
-
-    @Transactional(readOnly = true)
-    public List<StudyRegistResponseDto> getRegists(Long memberId) {
-        List<StudyRegist> studyRegistList = studyRegistRepository.findAllById(memberId);
-
-        return studyRegistList.stream()
-            .map(StudyRegistResponseDto::of)
-            .collect(Collectors.toList());
-    }
 
 
     /**

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Entity(name = "StudyWish")
 @NoArgsConstructor
-public class StudyWish extends Timestamped {
+public class StudyWish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
