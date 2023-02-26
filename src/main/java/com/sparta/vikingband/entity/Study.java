@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity(name = "Study")
@@ -35,16 +37,16 @@ public class Study extends Timestamped {
     private Member member;
 
     @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
-    List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
+    Set<StudyBoardComment> studyBoardCommentSet = new HashSet<>();
 
     @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
-    List<StudyBoard> studyBoardList = new ArrayList<>();
+    Set<StudyBoard> studyBoardSet = new HashSet<>();
 
     @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
-    List<StudyRegist> studyRegistList = new ArrayList<>();
+    Set<StudyRegist> studyRegistSet = new HashSet<>();
 
     @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
-    List<StudyWish> studyWishList = new ArrayList<>();
+    Set<StudyWish> studyWishSet = new HashSet<>();
 
     public Study(StudyRequestDto studyRequestDto, Member member, String imageUrl) {
         this.title = studyRequestDto.getTitle();

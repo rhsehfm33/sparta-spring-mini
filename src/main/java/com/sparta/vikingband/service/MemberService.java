@@ -5,10 +5,7 @@ import com.sparta.vikingband.dto.MemberOuterResponseDto;
 import com.sparta.vikingband.dto.MemberWholeResponseDto;
 import com.sparta.vikingband.dto.SignupRequestDto;
 import com.sparta.vikingband.entity.Member;
-import com.sparta.vikingband.entity.Study;
-import com.sparta.vikingband.entity.StudyBoardComment;
 import com.sparta.vikingband.enums.ErrorMessage;
-import com.sparta.vikingband.enums.MemberRoleEnum;
 import com.sparta.vikingband.jwt.JwtUtil;
 import com.sparta.vikingband.repository.MemberRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.file.AccessDeniedException;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,7 +65,7 @@ public class MemberService {
     @Transactional
     public MemberWholeResponseDto getMemberDetail(Long memberId, UserDetailsImpl userDetailsImpl) throws AccessDeniedException {
         // 사용자 확인
-        Member member = memberRepository.findByMemberName(userDetailsImpl.getUsername()).orElseThrow(
+        Member member = memberRepository.findMemberDetailByMemberName(userDetailsImpl.getUsername()).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.WRONG_USERNAME.getMessage())
         );
 

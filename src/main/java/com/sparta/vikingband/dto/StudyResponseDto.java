@@ -1,10 +1,8 @@
 package com.sparta.vikingband.dto;
 
-import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,7 +20,7 @@ public class StudyResponseDto {
     StudyResponseDto(Study study) {
         this.author = AuthorResponseDto.of(study.getMember());
         this.studyId = study.getId();
-        this.likes = study.getStudyWishList().size();
+        this.likes = study.getStudyWishSet().size();
         this.title = study.getTitle();
         this.content = study.getContent();
         this.subject = study.getSubject();
