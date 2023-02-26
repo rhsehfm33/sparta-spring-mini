@@ -27,7 +27,7 @@ public class StudyBoardResponseDto {
         this.createdAt = studyBoard.getCreatedAt();
         this.modifiedAt = studyBoard.getModifiedAt();
     }
-    public static StudyBoardResponseDto of (StudyBoard studyBoard){
+    public static StudyBoardResponseDto of (StudyBoard studyBoard) {
         return new StudyBoardResponseDto(studyBoard);
     }
 }
