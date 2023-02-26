@@ -16,19 +16,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/studies_wish")
+@RequestMapping("/api")
 public class StudyWishController {
 
     private StudyWishService studyWishService;
 
-    @GetMapping
-    @RequestMapping("/wish/{memberId}")
+    @GetMapping("/wish/{memberId}")
     public ApiResponse<List<StudyWishResponseDto>> getWishes(@PathVariable Long memberId) {
         return ApiResponse.successOf(HttpStatus.OK, studyWishService.getWishes(memberId));
     }
 
-    @PostMapping
-    @RequestMapping("/wish")
+    @PostMapping("/wish")
     public ApiResponse<StudyWishResponseDto> makeWish(
         @RequestBody StudyWishRequestDto studyWishRequestDto,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -36,8 +34,7 @@ public class StudyWishController {
         return ApiResponse.successOf(HttpStatus.ACCEPTED, studyWishService.makeWish(studyWishRequestDto, userDetails));
     }
 
-    @DeleteMapping
-    @RequestMapping("/wish/{wishId}")
+    @DeleteMapping("/wish/{wishId}")
     public ApiResponse<StudyWishResponseDto> deleteWish(
         @PathVariable Long wishId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails

@@ -16,20 +16,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/studies_regist")
+@RequestMapping("/api")
 public class StudyRegistController {
 
     private final StudyRegistService studyRegistService;
 
-    @GetMapping
-    @RequestMapping("/apply/{memberId}")
+    @GetMapping("/apply/{memberId}")
     public ApiResponse<List<StudyRegistResponseDto>> getRegists(@PathVariable Long memberId) {
         return ApiResponse.successOf(HttpStatus.OK, studyRegistService.getRegists(memberId));
     }
 
 
-    @PostMapping
-    @RequestMapping("/apply")
+    @PostMapping("/apply")
     public ApiResponse<StudyRegistResponseDto> makeRegist(
         @RequestBody StudyRegistRequestDto studyRegistRequestDto,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -37,8 +35,7 @@ public class StudyRegistController {
         return ApiResponse.successOf(HttpStatus.ACCEPTED, studyRegistService.makeRegist(studyRegistRequestDto, userDetails));
     }
 
-    @DeleteMapping
-    @RequestMapping("/apply/delete/{studyRegistId}")
+    @DeleteMapping("/apply/delete/{studyRegistId}")
     public ApiResponse<StudyRegistResponseDto> deleteRegist(
         @PathVariable Long studyRegistId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -47,8 +44,7 @@ public class StudyRegistController {
         return ApiResponse.successOf(HttpStatus.OK, null);
     }
 
-    @PostMapping
-    @RequestMapping("/apply/approve/{studyRegistId}")
+    @PostMapping("/apply/approve/{studyRegistId}")
     public ApiResponse<StudyRegistResponseDto> approveRegist(
         @PathVariable Long studyRegistId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
