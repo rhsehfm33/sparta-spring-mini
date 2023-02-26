@@ -12,11 +12,11 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = {
-            "studyBoardCommentList",
-            "studyBoardList",
-            "studyRegistList",
-            "studyWishList",
-            "studyList"
+            "studySet",
+            "studyWishSet",
+            "studyRegistSet",
+            "studyBoardSet",
+            "studyBoardCommentSet"
     }, type = EntityGraph.EntityGraphType.LOAD)
     Optional<Member> findByMemberName(String memberName);
 

@@ -29,9 +29,6 @@ public class Study extends Timestamped {
     private String imageUrl;
 
     @Column(nullable = false)
-    private int minMember;
-
-    @Column(nullable = false)
     private int maxMember;
 
     @ManyToOne
@@ -54,7 +51,6 @@ public class Study extends Timestamped {
         this.content = studyRequestDto.getContent();
         this.subject = studyRequestDto.getSubject();
         this.imageUrl = imageUrl;
-        this.minMember = studyRequestDto.getMinMember();
         this.maxMember = studyRequestDto.getMaxMember();
         this.member = member;
     }
@@ -63,7 +59,6 @@ public class Study extends Timestamped {
         this.title = studyRequestDto.getTitle();
         this.subject = studyRequestDto.getSubject();
         this.content = studyRequestDto.getContent();
-        this.minMember = studyRequestDto.getMinMember();
         this.maxMember = studyRequestDto.getMaxMember();
     }
 }

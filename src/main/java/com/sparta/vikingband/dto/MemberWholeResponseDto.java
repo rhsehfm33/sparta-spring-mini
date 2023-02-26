@@ -16,11 +16,11 @@ public class MemberWholeResponseDto {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private List<StudyResponseDto> myStudyRegists;
+    private List<StudyResponseDto> myStudyWishes;
     private List<StudyResponseDto> myCreatedStudies;
     private List<StudyBoardResponseDto> myCreatedStudyBoards;
-    private List<StudyBoardCommentResponseDto> myStudyBoardComments;
-    private List<StudyRegistResponseDto> myStudyRegists;
-    private List<StudyWishResponseDto> myStudyWishes;
+    private List<StudyBoardCommentResponseDto> myCreatedStudyBoardComments;
 
 
     // TODO: N + 1 problem occurs. Need refactoring
@@ -30,17 +30,20 @@ public class MemberWholeResponseDto {
         this.email = member.getEmail();
         this.createdAt = member.getCreatedAt();
         this.modifiedAt = member.getModifiedAt();
-        this.myCreatedStudies = member.getStudyList().stream()
+        this.myStudyRegists = member.getStudyRegistSet().stream()
+                .map(studyRegist -> StudyResponseDto.of(studyRegist.getStudy()))
+                .collect(Collectors.toList());;
+        this.myStudyWishes = member.getStudyWishSet().stream()
+                .map(studyWish -> StudyResponseDto.of(studyWish.getStudy()))
+                .collect(Collectors.toList());
+        this.myCreatedStudies = member.getStudySet().stream()
                 .map(study -> StudyResponseDto.of(study))
                 .collect(Collectors.toList());
-        this.myStudyBoardComments = member.getStudyBoardCommentList().stream()
-                .map(studyBoardComment -> StudyBoardCommentResponseDto.of(studyBoardComment))
+        this.myCreatedStudyBoards = member.getStudyBoardSet().stream()
+                .map(studyBoard -> StudyBoardResponseDto.of(studyBoard))
                 .collect(Collectors.toList());
-        this.myStudyRegists = member.getStudyRegistList().stream()
-                .map(studyRegist -> StudyRegistResponseDto.of(studyRegist))
-                .collect(Collectors.toList());;
-        this.myStudyWishes = member.getStudyWishList().stream()
-                .map(studyWish -> StudyWishResponseDto.of(studyWish))
+        this.myCreatedStudyBoardComments = member.getStudyBoardCommentSet().stream()
+                .map(studyBoardComment -> StudyBoardCommentResponseDto.of(studyBoardComment))
                 .collect(Collectors.toList());
     }
 

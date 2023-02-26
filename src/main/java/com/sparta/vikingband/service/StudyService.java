@@ -34,10 +34,6 @@ public class StudyService {
                 () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
-        if (studyRequestDto.getMinMember() > studyRequestDto.getMaxMember()) {
-            throw new IllegalArgumentException(ErrorMessage.WRONG_MIN_MAX_MEMBER.getMessage());
-        }
-
         Study newStudy = new Study(studyRequestDto, member, null);
         studyRepository.save(newStudy);
 

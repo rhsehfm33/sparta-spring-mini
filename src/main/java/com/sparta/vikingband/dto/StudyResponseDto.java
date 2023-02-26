@@ -15,7 +15,6 @@ public class StudyResponseDto {
     String title;
     String subject;
     String content;
-    int minMember;
     int maxMember;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
@@ -27,7 +26,6 @@ public class StudyResponseDto {
         this.title = study.getTitle();
         this.content = study.getContent();
         this.subject = study.getSubject();
-        this.minMember = study.getMinMember();
         this.maxMember = study.getMaxMember();
         this.createdAt = study.getCreatedAt() == null ? LocalDateTime.now() : study.getCreatedAt();
         this.modifiedAt = LocalDateTime.now();
