@@ -34,11 +34,11 @@ public class Member extends Timestamped {
     Set<Study> studySet = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
-    // TODO: @OrderBy("createdAt DESC") 넣기
+    @OrderBy("createdAt DESC")
     Set<StudyWish> studyWishSet = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
-    // TODO: @OrderBy("createdAt DESC") 넣기
+    @OrderBy("createdAt DESC")
     Set<StudyRegist> studyRegistSet = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)

@@ -32,7 +32,7 @@ public class MemberWholeResponseDto {
         this.modifiedAt = member.getModifiedAt();
         this.myStudyRegists = member.getStudyRegistSet().stream()
                 .map(studyRegist -> StudyResponseDto.of(studyRegist.getStudy()))
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
         this.myStudyWishes = member.getStudyWishSet().stream()
                 .map(studyWish -> StudyResponseDto.of(studyWish.getStudy()))
                 .collect(Collectors.toList());
