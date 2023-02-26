@@ -16,25 +16,25 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/wish")
 public class StudyWishController {
 
     private StudyWishService studyWishService;
 
-    @GetMapping("/wish/{memberId}")
-    public ApiResponse<List<StudyWishResponseDto>> getWishes(@PathVariable Long memberId) {
-        return ApiResponse.successOf(HttpStatus.OK, studyWishService.getWishes(memberId));
-    }
+//    @GetMapping("/{memberId}")
+//    public ApiResponse<List<StudyWishResponseDto>> getWishes(@PathVariable Long memberId) {
+//        return ApiResponse.successOf(HttpStatus.OK, studyWishService.getWishes(memberId));
+//    }
 
-    @PostMapping("/wish")
+    @PostMapping("/{studyWishId}")
     public ApiResponse<StudyWishResponseDto> makeWish(
-        @RequestBody StudyWishRequestDto studyWishRequestDto,
+        @PathVariable Long studyWishId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        return ApiResponse.successOf(HttpStatus.ACCEPTED, studyWishService.makeWish(studyWishRequestDto, userDetails));
+        return ApiResponse.successOf(HttpStatus.ACCEPTED, studyWishService.makeWish(studyWishId, userDetails));
     }
 
-    @DeleteMapping("/wish/{wishId}")
+    @DeleteMapping("/cancel/{wishId}")
     public ApiResponse<StudyWishResponseDto> deleteWish(
         @PathVariable Long wishId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails

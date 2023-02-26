@@ -37,7 +37,7 @@ public class StudyWishService {
     }
 
     @Transactional
-    public StudyWishResponseDto makeWish(StudyWishRequestDto studyWishRequestDto,
+    public StudyWishResponseDto makeWish(Long studyWishId,
                                          UserDetailsImpl userDetails) {
         // 인증된 사용자 이름으로 사용자 정보를 DB에서 조회
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
@@ -45,7 +45,7 @@ public class StudyWishService {
         );
 
         // 입력된 스터디 ID 정보를 DB에서 조회
-        Study study = studyRepository.findById(studyWishRequestDto.getStudy().getId()).orElseThrow(
+        Study study = studyRepository.findById(studyWishId).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 

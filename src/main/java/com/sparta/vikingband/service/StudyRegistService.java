@@ -37,13 +37,6 @@ public class StudyRegistService {
             .collect(Collectors.toList());
     }
 
-
-    /**
-     *
-     * @param studyRegistRequestDto
-     * @param userDetails
-     * @return
-     */
     @Transactional
     public StudyRegistResponseDto makeRegist(Long studyId, UserDetailsImpl userDetails) {
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
