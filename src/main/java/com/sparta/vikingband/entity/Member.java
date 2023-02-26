@@ -4,10 +4,10 @@ import com.sparta.vikingband.dto.SignupRequestDto;
 import com.sparta.vikingband.enums.MemberRoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Entity(name = "Member")
@@ -30,19 +30,24 @@ public class Member extends Timestamped {
     private MemberRoleEnum role = MemberRoleEnum.USER;
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
+    @OrderBy("createdAt DESC")
+    Set<Study> studyList = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyBoard> studyBoardList = new ArrayList<>();
+    @OrderBy("createdAt DESC")
+    Set<StudyWish> studyWishList = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyRegist> studyRegistList = new ArrayList<>();
+    @OrderBy("createdAt DESC")
+    Set<StudyRegist> studyRegistList = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyWish> studyWishList = new ArrayList<>();
+    // TODO: @OrderBy("createdAt DESC") 넣기
+    Set<StudyBoard> studyBoardList = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<Study> studyList = new ArrayList<>();
+    // TODO: @OrderBy("createdAt DESC") 넣기
+    Set<StudyBoardComment> studyBoardCommentList = new LinkedHashSet<>();
 
     public Member(SignupRequestDto signupRequestDto) {
         this.memberName = signupRequestDto.getUsername();

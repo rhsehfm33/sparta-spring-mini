@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class MemberOuterResponseDto {
     private Long id;
     private String username;
