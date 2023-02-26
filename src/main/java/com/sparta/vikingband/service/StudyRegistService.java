@@ -45,13 +45,12 @@ public class StudyRegistService {
      * @return
      */
     @Transactional
-    public StudyRegistResponseDto makeRegist(StudyRegistRequestDto studyRegistRequestDto, UserDetailsImpl userDetails) {
-
+    public StudyRegistResponseDto makeRegist(Long studyId, UserDetailsImpl userDetails) {
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
-        Study study = studyRepository.findById(studyRegistRequestDto.getStudy().getId()).orElseThrow(
+        Study study = studyRepository.findById(studyId).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 

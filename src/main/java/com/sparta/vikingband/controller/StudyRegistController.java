@@ -16,26 +16,26 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/study_register")
 public class StudyRegistController {
 
     private final StudyRegistService studyRegistService;
 
-    @GetMapping("/apply/{memberId}")
-    public ApiResponse<List<StudyRegistResponseDto>> getRegists(@PathVariable Long memberId) {
-        return ApiResponse.successOf(HttpStatus.OK, studyRegistService.getRegists(memberId));
-    }
+//    @GetMapping("/apply/{memberId}")
+//    public ApiResponse<List<StudyRegistResponseDto>> getRegists(@PathVariable Long memberId) {
+//        return ApiResponse.successOf(HttpStatus.OK, studyRegistService.getRegists(memberId));
+//    }
 
 
-    @PostMapping("/apply")
+    @PostMapping("/apply/{studyId}")
     public ApiResponse<StudyRegistResponseDto> makeRegist(
-        @RequestBody StudyRegistRequestDto studyRegistRequestDto,
-        @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
+            @PathVariable Long studyId,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        return ApiResponse.successOf(HttpStatus.ACCEPTED, studyRegistService.makeRegist(studyRegistRequestDto, userDetails));
+        return ApiResponse.successOf(HttpStatus.ACCEPTED, studyRegistService.makeRegist(studyId, userDetails));
     }
 
-    @DeleteMapping("/apply/delete/{studyRegistId}")
+    @DeleteMapping("/cancel/{studyId}")
     public ApiResponse<StudyRegistResponseDto> deleteRegist(
         @PathVariable Long studyRegistId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -44,7 +44,7 @@ public class StudyRegistController {
         return ApiResponse.successOf(HttpStatus.OK, null);
     }
 
-    @PostMapping("/apply/approve/{studyRegistId}")
+    @PutMapping("/approve/{studyRegistId}")
     public ApiResponse<StudyRegistResponseDto> approveRegist(
         @PathVariable Long studyRegistId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -53,14 +53,13 @@ public class StudyRegistController {
         return ApiResponse.successOf(HttpStatus.ACCEPTED, null);
     }
 
-//    @DeleteMapping
-//    @RequestMapping("/apply/delete/{studyRegistId}")
-//    public ApiResponse<StudyRegistResponseDto> denyRegist(
-//        @PathVariable Long studyRegistId,
-//        @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
-//    ) throws AccessDeniedException {
-//        studyRegistService.deleteRegist(studyRegistId, userDetails);
-//        return ApiResponse.successOf(HttpStatus.OK, null);
-//    }
+    @DeleteMapping("/deny/{studyRegistId}")
+    public ApiResponse<StudyRegistResponseDto> denyRegist(
+        @PathVariable Long studyRegistId,
+        @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) throws AccessDeniedException {
+        studyRegistService.deleteRegist(studyRegistId, userDetails);
+        return ApiResponse.successOf(HttpStatus.OK, null);
+    }
 
 }

@@ -31,19 +31,19 @@ public class Study extends Timestamped {
     @Column(nullable = false)
     private int maxMember;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     List<StudyBoard> studyBoardList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     List<StudyRegist> studyRegistList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     List<StudyWish> studyWishList = new ArrayList<>();
 
     public Study(StudyRequestDto studyRequestDto, Member member, String imageUrl) {
