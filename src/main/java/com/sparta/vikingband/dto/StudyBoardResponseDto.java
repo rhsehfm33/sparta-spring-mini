@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class StudyBoardResponseDto {
     private Long id;
     private Long memberId;
-    private String membername;
-    private String title;
+    private String membername; // TODO: 네이밍 컨벤션에 따라 memberName으로
+    private String title; // TODO: 삭제
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
