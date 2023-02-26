@@ -13,10 +13,12 @@ import com.sparta.vikingband.repository.StudyWishRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.nio.file.AccessDeniedException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +28,17 @@ public class StudyWishService {
     private final StudyRepository studyRepository;
     private final StudyWishRepository studyWishRepository;
 
+    @Transactional(readOnly = true)
+    public List<StudyWishResponseDto> getWishes(Long memberId) {
+        List<StudyWish> studyWishList = studyWishRepository.findAllByMemberId(memberId);
+        return studyWishList.stream()
+            .map(StudyWishResponseDto::of)
+            .collect(Collectors.toList());
+    }
+
     @Transactional
-    public StudyWishResponseDto createWish(StudyWishRequestDto studyWishRequestDto,
-                                             UserDetailsImpl userDetails) {
+    public StudyWishResponseDto makeWish(StudyWishRequestDto studyWishRequestDto,
+                                         UserDetailsImpl userDetails) {
         // 인증된 사용자 이름으로 사용자 정보를 DB에서 조회
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
