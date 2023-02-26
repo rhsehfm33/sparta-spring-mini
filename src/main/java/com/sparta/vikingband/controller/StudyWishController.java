@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/studies")
+@RequestMapping("/api/studies_wish")
 public class StudyWishController {
 
     private StudyWishService studyWishService;
