@@ -44,7 +44,7 @@ public class StudyRegistController {
         return ApiResponse.successOf(HttpStatus.OK, null);
     }
 
-    @PostMapping("/apply/approve/{studyRegistId}")
+    @PutMapping("/apply/approve/{studyRegistId}")
     public ApiResponse<StudyRegistResponseDto> approveRegist(
         @PathVariable Long studyRegistId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
