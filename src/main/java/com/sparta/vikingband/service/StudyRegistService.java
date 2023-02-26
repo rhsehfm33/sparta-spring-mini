@@ -2,7 +2,6 @@ package com.sparta.vikingband.service;
 
 import com.sparta.vikingband.dto.StudyRegistRequestDto;
 import com.sparta.vikingband.dto.StudyRegistResponseDto;
-import com.sparta.vikingband.dto.StudyResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyRegist;
