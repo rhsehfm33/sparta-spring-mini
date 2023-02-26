@@ -12,14 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StudyWishResponseDto {
 
-    private Long id;
-    private Member member;
-    private Study study;
+    private Long studyWishId;
+
 
     StudyWishResponseDto(StudyWish studyWish) {
-        this.id = studyWish.getId();
-        this.member = studyWish.getMember();
-        this.study = studyWish.getStudy();
+        this.studyWishId = studyWish.getId();
     }
 
     public static StudyWishResponseDto of(StudyWish studyWish) {

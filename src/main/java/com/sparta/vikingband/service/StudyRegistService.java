@@ -13,10 +13,12 @@ import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.nio.file.AccessDeniedException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,21 +28,22 @@ public class StudyRegistService {
     private final StudyRepository studyRepository;
     private final StudyRegistRepository studyRegistRepository;
 
+    @Transactional(readOnly = true)
+    public List<StudyRegistResponseDto> getRegists(Long memberId) {
+        List<StudyRegist> studyRegistList = studyRegistRepository.findAllById(memberId);
 
-    /**
-     *
-     * @param studyRegistRequestDto
-     * @param userDetails
-     * @return
-     */
+        return studyRegistList.stream()
+            .map(StudyRegistResponseDto::of)
+            .collect(Collectors.toList());
+    }
+
     @Transactional
-    public StudyRegistResponseDto makeRegist(StudyRegistRequestDto studyRegistRequestDto, UserDetailsImpl userDetails) {
-
+    public StudyRegistResponseDto makeRegist(Long studyId, UserDetailsImpl userDetails) {
         Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
-        Study study = studyRepository.findById(studyRegistRequestDto.getStudy().getId()).orElseThrow(
+        Study study = studyRepository.findById(studyId).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 

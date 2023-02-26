@@ -3,6 +3,7 @@ package com.sparta.vikingband.entity;
 import com.sparta.vikingband.dto.StudyBoardCommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 
@@ -17,13 +18,13 @@ public class StudyBoardComment extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private StudyBoard studyBoard;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Study study;
 
 

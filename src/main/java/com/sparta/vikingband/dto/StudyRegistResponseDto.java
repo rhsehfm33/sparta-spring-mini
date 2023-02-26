@@ -12,14 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StudyRegistResponseDto {
 
-    private Long id;
-    private Member member;
-    private Study study;
+    private Long studyRegistId;
 
     StudyRegistResponseDto(StudyRegist studyRegist) {
-        this.id = studyRegist.getId();
-        this.member = studyRegist.getMember();
-        this.study = studyRegist.getStudy();
+        this.studyRegistId = studyRegist.getId();
     }
 
     public static StudyRegistResponseDto of(StudyRegist studyRegist) {

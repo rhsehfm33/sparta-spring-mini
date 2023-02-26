@@ -29,23 +29,23 @@ public class Member extends Timestamped {
     @Enumerated(value = EnumType.STRING)
     private MemberRoleEnum role = MemberRoleEnum.USER;
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     @OrderBy("createdAt DESC")
     Set<Study> studySet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     // TODO: @OrderBy("createdAt DESC") 넣기
     Set<StudyWish> studyWishSet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     // TODO: @OrderBy("createdAt DESC") 넣기
     Set<StudyRegist> studyRegistSet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     @OrderBy("createdAt DESC")
     Set<StudyBoard> studyBoardSet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     @OrderBy("createdAt DESC")
     Set<StudyBoardComment> studyBoardCommentSet = new LinkedHashSet<>();
 
