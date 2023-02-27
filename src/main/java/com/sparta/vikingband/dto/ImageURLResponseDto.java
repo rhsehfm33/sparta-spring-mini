@@ -1,5 +1,6 @@
 package com.sparta.vikingband.dto;
 
+import com.sparta.vikingband.entity.Study;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ImageURLResponseDto {
    private String imageUrl;
+   private String memberName;
+   private Long studyId;
 
-   ImageURLResponseDto(String url){
-      this.imageUrl = url;
+
+   ImageURLResponseDto(Study study){
+      this.imageUrl = study.getImageUrl();
+      this.memberName = study.getMember().getMemberName();
+      this.studyId = study.getId();
    }
 
-   public static ImageURLResponseDto of (String url){return new ImageURLResponseDto(url);}
+   public static ImageURLResponseDto of (Study study){return new ImageURLResponseDto(study);}
 }

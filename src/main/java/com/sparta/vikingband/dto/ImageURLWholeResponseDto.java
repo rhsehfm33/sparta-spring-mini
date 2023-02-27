@@ -1,3 +1,4 @@
+/*
 package com.sparta.vikingband.dto;
 
 import com.sparta.vikingband.entity.Study;
@@ -13,3 +14,4 @@ public class ImageURLWholeResponseDto {
 
     public void addImageURL(Study study){imageURLResponseDtoList.add(study.getImageUrl());}
 }
+*/

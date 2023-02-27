@@ -5,10 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.sparta.vikingband.dto.ImageURLWholeResponseDto;
-import com.sparta.vikingband.dto.StudyRequestDto;
-import com.sparta.vikingband.dto.StudyResponseDto;
-import com.sparta.vikingband.dto.StudyWholeResponseDto;
+import com.sparta.vikingband.dto.*;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.enums.ErrorMessage;
@@ -44,13 +41,18 @@ public class StudyService {
 
     //사진 관련 메서드
     @Transactional
-    public ImageURLWholeResponseDto uploadFile(List<MultipartFile> multipartFile, UserDetailsImpl userDetailsImpl) {
-        List<String> fileNameList = new ArrayList<>();
-        Study study = studyRepository.findByMemberId(userDetailsImpl.getMember().getId()).orElseThrow(
+    public ImageURLResponseDto uploadFile(
+            Long studyId,
+            List<MultipartFile> multipartFile,
+            UserDetailsImpl userDetailsImpl
+    ) {
+        //List<String> fileNameList = new ArrayList<>();
+        Study study = studyRepository.findByIdAndMemberId(studyId,userDetailsImpl.getMember().getId()).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
-        ImageURLWholeResponseDto dto = new ImageURLWholeResponseDto();
+        //ImageURLWholeResponseDto dto = new ImageURLWholeResponseDto();
+
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
         multipartFile.forEach(file -> {
             String fileName = createFileName(file.getOriginalFilename());
@@ -65,11 +67,11 @@ public class StudyService {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
             }
             study.updateURL("https://viking-band.s3.ap-northeast-2.amazonaws.com/"+fileName);
-            dto.addImageURL(study);
+            //dto.addImageURL(study);
             //fileNameList.add(fileName);
         });
-
-         return dto;
+           return ImageURLResponseDto.of(study);
+         //return dto;
         //return fileNameList;
     }
 
