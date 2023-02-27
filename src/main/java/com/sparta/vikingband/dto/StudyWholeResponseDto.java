@@ -24,6 +24,7 @@ public class StudyWholeResponseDto {
 
     public StudyWholeResponseDto(Study study) {
         this.author = AuthorResponseDto.of(study.getMember());
+        this.studyId = study.getId();
         this.likes = study.getStudyWishSet().size();
         this.title = study.getTitle();
         this.subject = study.getSubject();

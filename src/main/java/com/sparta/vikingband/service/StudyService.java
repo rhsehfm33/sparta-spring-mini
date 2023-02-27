@@ -5,7 +5,10 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.sparta.vikingband.dto.*;
+import com.sparta.vikingband.dto.ImageURLWholeResponseDto;
+import com.sparta.vikingband.dto.StudyRequestDto;
+import com.sparta.vikingband.dto.StudyResponseDto;
+import com.sparta.vikingband.dto.StudyWholeResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.enums.ErrorMessage;
@@ -121,13 +124,8 @@ public class StudyService {
                 .collect(Collectors.toList());
     }
 
-    public List<StudyResponseDto> getStudiesByQueryCondition(String keyword, SortType sortType) {
-        if (sortType.equals(SortType.WISH)) {
-            return studyRepository.findAllByKeywordOrderByStudyWishSetCountDesc(keyword);
-        } else if (sortType.equals(SortType.CREATED_AT)) {
-            return studyRepository.findByTitleContainingOrderByCreatedAtDesc(keyword);
-        }
-        throw new IllegalArgumentException(ErrorMessage.WRONG_STUDY_QUERY_CONDITION.getMessage());
+    public List<StudyResponseDto> getStudiesByQueryCondition() {
+        return studyRepository.findAllByHottest();
     }
 
     @Transactional
