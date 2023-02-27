@@ -10,13 +10,10 @@ import com.sparta.vikingband.service.StudyService;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -30,7 +27,7 @@ public class StudyController {
     public ApiResponse<StudyResponseDto> createStudy (
             @RequestBody @Valid StudyRequestDto studyRequestDto,
             @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
-    ){
+    ) {
         return ApiResponse.successOf(HttpStatus.CREATED, studyService.studyCreate(studyRequestDto, userDetailsImpl));
     }
 
@@ -44,12 +41,9 @@ public class StudyController {
         return ApiResponse.successOf(HttpStatus.OK, studyService.getStudies());
     }
 
-    @GetMapping("/queries")
-    public ApiResponse<List<StudyResponseDto>> getStudiesByQueryCondition(
-            @RequestParam String keyword,
-            @RequestParam(defaultValue = "recent") SortType sortType
-    ) {
-        return ApiResponse.successOf(HttpStatus.OK, studyService.getStudiesByQueryCondition(keyword, sortType));
+    @GetMapping("/hottest")
+    public ApiResponse<List<StudyResponseDto>> getStudiesHottest() {
+        return ApiResponse.successOf(HttpStatus.OK, studyService.getStudiesByQueryCondition());
     }
 
     @PutMapping("/{studyId}")

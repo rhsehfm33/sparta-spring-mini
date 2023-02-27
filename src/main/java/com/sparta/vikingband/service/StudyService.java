@@ -58,15 +58,8 @@ public class StudyService {
             .collect(Collectors.toList());
     }
 
-    public List<StudyResponseDto> getStudiesByQueryCondition(String keyword, SortType sortType) {
-        if (sortType.equals(SortType.WISH)) {
-            return studyRepository.findAllByKeywordOrderByStudyWishSetCountDesc(keyword);
-        }
-        else if (sortType.equals(SortType.CREATED_AT)) {
-            return studyRepository.findByTitleContainingOrderByCreatedAtDesc(keyword);
-        }
-
-        throw new IllegalArgumentException(ErrorMessage.WRONG_STUDY_QUERY_CONDITION.getMessage());
+    public List<StudyResponseDto> getStudiesByQueryCondition() {
+        return studyRepository.findAllByHottest();
     }
 
     @Transactional
