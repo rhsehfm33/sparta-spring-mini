@@ -2,6 +2,7 @@ package com.sparta.vikingband.service;
 
 import com.sparta.vikingband.dto.StudyRequestDto;
 import com.sparta.vikingband.dto.StudyResponseDto;
+import com.sparta.vikingband.dto.StudyWholeResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.enums.ErrorMessage;
@@ -40,23 +41,21 @@ public class StudyService {
     }
 
     @Transactional
-    public StudyResponseDto getStudy(Long studyId) {
+    public StudyWholeResponseDto getStudy(Long studyId) {
         Study study = studyRepository.findById(studyId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 
-        return StudyResponseDto.of(study);
+        return StudyWholeResponseDto.of(study);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<StudyResponseDto> getStudies() {
-        List<Study> studyList = studyRepository.findByOrderByCreatedAtDesc();
-        List<StudyResponseDto> studyResponseDtoList = studyList.stream()
-                .map(study -> StudyResponseDto.of(study))
-                .collect(Collectors.toList());
+        List<Study> studyList = studyRepository.findAll();
 
-
-        return studyResponseDtoList;
+        return studyList.stream()
+            .map(StudyResponseDto::of)
+            .collect(Collectors.toList());
     }
 
     public List<StudyResponseDto> getStudiesByQueryCondition(String keyword, SortType sortType) {
