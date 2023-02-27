@@ -20,9 +20,9 @@ public class StudyBoardResponseDto {
 
     StudyBoardResponseDto(StudyBoard studyBoard){
         this.id = studyBoard.getId();
-        this.memberId =studyBoard.getMember().getId();
-        this.membername=studyBoard.getMember().getMemberName();
-        this.title=studyBoard.getStudy().getTitle();
+        this.memberId = studyBoard.getMember().getId();
+        this.membername = studyBoard.getMember().getMemberName();
+        this.title = studyBoard.getStudy().getTitle();
         this.content=studyBoard.getContent();
         this.createdAt = studyBoard.getCreatedAt();
         this.modifiedAt = studyBoard.getModifiedAt();

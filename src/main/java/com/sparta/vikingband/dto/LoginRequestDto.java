@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class LoginRequestDto {
     @Size(min=4, max=10)
     @Pattern(regexp="^[a-z0-9]+$")
-    private String username;
+    private String memberName;
 
     @Size(min=8, max=15)
     @Pattern(regexp="^[A-Za-z0-9]+$")
