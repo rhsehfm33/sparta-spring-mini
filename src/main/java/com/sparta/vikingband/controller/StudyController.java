@@ -31,12 +31,12 @@ public class StudyController {
     }
 
     @GetMapping("/{studyId}")
-    public ApiResponse<StudyResponseDto> getStudy(@PathVariable Long studyId) {
+    public ApiResponse<StudyWholeResponseDto> getStudy(@PathVariable Long studyId) {
         return ApiResponse.successOf(HttpStatus.OK, studyService.getStudy(studyId));
     }
 
     @GetMapping
-    public ApiResponse<StudyWholeResponseDto> getStudies() {
+    public ApiResponse<List<StudyResponseDto>> getStudies() {
         return ApiResponse.successOf(HttpStatus.OK, studyService.getStudies());
     }
 

@@ -41,24 +41,21 @@ public class StudyService {
     }
 
     @Transactional
-    public StudyResponseDto getStudy(Long studyId) {
+    public StudyWholeResponseDto getStudy(Long studyId) {
         Study study = studyRepository.findById(studyId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 
-        return StudyResponseDto.of(study);
+        return StudyWholeResponseDto.of(study);
     }
 
     @Transactional(readOnly = true)
-    public StudyWholeResponseDto getStudies() {
-        StudyWholeResponseDto dto  = new StudyWholeResponseDto();
+    public List<StudyResponseDto> getStudies() {
         List<Study> studyList = studyRepository.findAll();
-        for (Study study : studyList) {
-            dto.addStudy(StudyResponseDto.of(study));
-        }
 
-
-        return dto;
+        return studyList.stream()
+            .map(StudyResponseDto::of)
+            .collect(Collectors.toList());
     }
 
     public List<StudyResponseDto> getStudiesByQueryCondition(String keyword, SortType sortType) {
