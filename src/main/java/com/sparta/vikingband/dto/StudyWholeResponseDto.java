@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class StudyWholeResponseDto {
     int maxMember;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
-    List<StudyBoardResponseDto> studyBoardResponseDtos;
+    List<StudyBoardResponseDto> studyBoards;
 
     public StudyWholeResponseDto(Study study) {
         this.author = AuthorResponseDto.of(study.getMember());
@@ -32,7 +31,7 @@ public class StudyWholeResponseDto {
         this.maxMember = study.getMaxMember();
         this.createdAt = study.getCreatedAt();
         this.modifiedAt = study.getModifiedAt();
-        this.studyBoardResponseDtos = study.getStudyBoardSet().stream()
+        this.studyBoards = study.getStudyBoardSet().stream()
             .map(StudyBoardResponseDto::of)
             .collect(Collectors.toList());
     }
