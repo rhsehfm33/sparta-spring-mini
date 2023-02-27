@@ -4,7 +4,6 @@ import com.sparta.vikingband.dto.SignupRequestDto;
 import com.sparta.vikingband.enums.MemberRoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
 import java.util.*;
@@ -50,7 +49,7 @@ public class Member extends Timestamped {
     Set<StudyBoardComment> studyBoardCommentSet = new LinkedHashSet<>();
 
     public Member(SignupRequestDto signupRequestDto, String encodedPassword) {
-        this.memberName = signupRequestDto.getUsername();
+        this.memberName = signupRequestDto.getMemberName();
         this.password = encodedPassword;
         this.email = signupRequestDto.getEmail();
     }

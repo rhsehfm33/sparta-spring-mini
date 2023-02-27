@@ -30,7 +30,7 @@ public class MemberService {
 
     @Transactional
     public MemberOuterResponseDto signup(SignupRequestDto signupRequestDto) {
-        String username = signupRequestDto.getUsername();
+        String username = signupRequestDto.getMemberName();
         String encodedPassword = passwordEncoder.encode(signupRequestDto.getPassword());
 
 
@@ -56,7 +56,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberOuterResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         // 사용자 확인
-        Member member = memberRepository.findByMemberName(loginRequestDto.getUsername()).orElseThrow(
+        Member member = memberRepository.findByMemberName(loginRequestDto.getMemberName()).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.WRONG_USERNAME.getMessage())
         );
 
