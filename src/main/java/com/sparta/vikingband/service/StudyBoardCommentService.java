@@ -72,10 +72,12 @@ public class StudyBoardCommentService {
         );
 
         StudyBoardComment studyBoardComment = studyBoardCommentRepository.findById(studyBoardCommentId).orElseThrow(
-                // TODO: 에러 발생
+                () -> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND.getMessage())
         );
 
-        // TODO: member와 studyBoardComment member가 같은지 확인
+        if (member.getId() != studyBoardComment.getMember().getId()) {
+            throw new AccessDeniedException(ErrorMessage.ACCESS_DENIED.getMessage());
+        }
 
         studyBoardComment.update(requestDto);
         return StudyBoardCommentResponseDto.of(studyBoardComment);
@@ -92,10 +94,12 @@ public class StudyBoardCommentService {
         );
 
         StudyBoardComment studyBoardComment = studyBoardCommentRepository.findById(studyBoardCommentId).orElseThrow(
-                // TODO: 에러 발생
+                () -> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND.getMessage())
         );
 
-        // TODO: member와 studyBoardComment member가 같은지 확인
+        if (member.getId() != studyBoardComment.getMember().getId()) {
+            throw new AccessDeniedException(ErrorMessage.ACCESS_DENIED.getMessage());
+        }
 
         studyBoardCommentRepository.delete(studyBoardComment);
     }
