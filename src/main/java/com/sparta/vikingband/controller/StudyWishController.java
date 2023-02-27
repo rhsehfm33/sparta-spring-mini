@@ -26,20 +26,20 @@ public class StudyWishController {
 //        return ApiResponse.successOf(HttpStatus.OK, studyWishService.getWishes(memberId));
 //    }
 
-    @PostMapping("/{studyWishId}")
-    public ApiResponse<StudyWishResponseDto> makeWish(
-        @PathVariable Long studyWishId,
+    @PostMapping("/toggle/{studyId}")
+    public ApiResponse<StudyWishResponseDto> toggleWish(
+        @PathVariable Long studyId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        return ApiResponse.successOf(HttpStatus.ACCEPTED, studyWishService.makeWish(studyWishId, userDetails));
+        return ApiResponse.successOf(HttpStatus.ACCEPTED, studyWishService.toggleWish(studyId, userDetails));
     }
 
-    @DeleteMapping("/cancel/{wishId}")
-    public ApiResponse<StudyWishResponseDto> deleteWish(
-        @PathVariable Long wishId,
-        @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
-    ) throws AccessDeniedException {
-        studyWishService.deleteWish(wishId, userDetails);
-        return ApiResponse.successOf(HttpStatus.ACCEPTED, null);
-    }
+//    @DeleteMapping("/{studyId}")
+//    public ApiResponse<StudyWishResponseDto> deleteWish(
+//        @PathVariable Long studyId,
+//        @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
+//    ) throws AccessDeniedException {
+//        studyWishService.deleteWish(studyId, userDetails);
+//        return ApiResponse.successOf(HttpStatus.ACCEPTED, null);
+//    }
 }

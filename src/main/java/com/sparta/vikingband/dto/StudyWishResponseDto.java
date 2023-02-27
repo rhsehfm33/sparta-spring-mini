@@ -9,18 +9,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class StudyWishResponseDto {
 
-    private Long studyWishId;
+    private boolean isWished;
 
 
-    StudyWishResponseDto(StudyWish studyWish) {
-        this.studyWishId = studyWish.getId();
+    StudyWishResponseDto(boolean isWished) {
+        this.isWished = isWished;
     }
 
-    public static StudyWishResponseDto of(StudyWish studyWish) {
-        return new StudyWishResponseDto(studyWish);
+    public static StudyWishResponseDto of(boolean isWished) {
+        return new StudyWishResponseDto(isWished);
     }
 
 }

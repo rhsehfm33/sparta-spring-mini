@@ -17,8 +17,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = {
             "studySet.member",
             "studySet.studyWishSet",
-            "studyWishSet.study.member",
+            "studySet.studyRegistSet.member",
+            "studySet.studyWishSet.member",
             "studyWishSet.study.studyWishSet",
+            "studyWishSet.study.member",
             "studyRegistSet.study.member",
             "studyRegistSet.study.studyWishSet",
             "studyBoardSet.member",

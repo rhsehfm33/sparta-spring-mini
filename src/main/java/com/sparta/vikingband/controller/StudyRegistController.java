@@ -1,7 +1,6 @@
 package com.sparta.vikingband.controller;
 
 import com.sparta.vikingband.dto.ApiResponse;
-import com.sparta.vikingband.dto.StudyRegistRequestDto;
 import com.sparta.vikingband.dto.StudyRegistResponseDto;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyRegistService;
@@ -12,7 +11,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,28 +35,30 @@ public class StudyRegistController {
 
     @DeleteMapping("/cancel/{studyId}")
     public ApiResponse<StudyRegistResponseDto> deleteRegist(
-        @PathVariable Long studyRegistId,
+        @PathVariable Long studyId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws AccessDeniedException {
-        studyRegistService.deleteRegist(studyRegistId, userDetails);
+        studyRegistService.deleteRegist(studyId, userDetails);
         return ApiResponse.successOf(HttpStatus.OK, null);
     }
 
-    @PutMapping("/approve/{studyRegistId}")
+    @PutMapping("/approve")
     public ApiResponse<StudyRegistResponseDto> approveRegist(
-        @PathVariable Long studyRegistId,
+        @RequestParam Long studyId,
+        @RequestParam Long registMemberId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws AccessDeniedException {
-        studyRegistService.approveRegist(studyRegistId, userDetails);
+        studyRegistService.approveRegist(studyId, registMemberId, userDetails);
         return ApiResponse.successOf(HttpStatus.ACCEPTED, null);
     }
 
-    @DeleteMapping("/deny/{studyRegistId}")
+    @DeleteMapping("/deny")
     public ApiResponse<StudyRegistResponseDto> denyRegist(
-        @PathVariable Long studyRegistId,
+        @RequestParam Long studyId,
+        @RequestParam Long registMemberId,
         @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws AccessDeniedException {
-        studyRegistService.deleteRegist(studyRegistId, userDetails);
+        studyRegistService.denyRegist(studyId, registMemberId, userDetails);
         return ApiResponse.successOf(HttpStatus.OK, null);
     }
 

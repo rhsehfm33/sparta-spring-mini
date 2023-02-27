@@ -1,5 +1,8 @@
 package com.sparta.vikingband.repository;
 
+import com.sparta.vikingband.entity.Member;
+import com.sparta.vikingband.entity.Study;
+import com.sparta.vikingband.entity.StudyRegist;
 import com.sparta.vikingband.entity.StudyWish;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +39,14 @@ public interface StudyWishRepository extends JpaRepository<StudyWish, Long> {
      * @return
      */
     List<StudyWish> findAllByMemberId(Long memberId);
+
+    /**
+     * 이미 똑같은 유저가 똑같은 스터디 신청했는지 확인
+     * @param member
+     * @param study
+     * @return
+     */
+    Optional<StudyWish> findByMemberAndStudy(Member member, Study study);
 
 //    Page<StudyWish> findAllByMemberId(Pageable pageable); // TODO: complie에러 잡기
 

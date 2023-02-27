@@ -2,6 +2,7 @@ package com.sparta.vikingband.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -28,9 +29,11 @@ public class StudyRegist extends Timestamped {
         this.study = study;
     }
 
-    public void toggleAccept() {
-        isAccepted = !isAccepted;
+    public void approve() {
+        this.isAccepted = true;
     }
 
-
+    public void deny() {
+        this.isAccepted = false;
+    }
 }

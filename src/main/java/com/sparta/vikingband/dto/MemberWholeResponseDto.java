@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class MemberWholeResponseDto {
-    private Long id;
-    private String username;
+    private Long memberId;
+    private String memberName;
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private List<StudyResponseDto> myStudyRegists;
+    private List<MyStudiesRegistMemberResponseDto> myStudiesWithRegistMembers;
     private List<StudyResponseDto> myStudyWishes;
     private List<StudyResponseDto> myCreatedStudies;
     private List<StudyBoardResponseDto> myCreatedStudyBoards;
@@ -24,13 +24,14 @@ public class MemberWholeResponseDto {
 
 
     public MemberWholeResponseDto(Member member) {
-        this.id = member.getId();
-        this.username = member.getMemberName();
+        this.memberId = member.getId();
+        this.memberName = member.getMemberName();
         this.email = member.getEmail();
         this.createdAt = member.getCreatedAt();
         this.modifiedAt = member.getModifiedAt();
-        this.myStudyRegists = member.getStudyRegistSet().stream()
-                .map(studyRegist -> StudyResponseDto.of(studyRegist.getStudy()))
+        this.myStudiesWithRegistMembers = member.getStudySet().stream()
+                .map(study -> MyStudiesRegistMemberResponseDto.of(study))
+                .filter(myStudiesRegistMemberResponseDto -> myStudiesRegistMemberResponseDto.getRegistMembers().size() > 0)
                 .collect(Collectors.toList());
         this.myStudyWishes = member.getStudyWishSet().stream()
                 .map(studyWish -> StudyResponseDto.of(studyWish.getStudy()))
