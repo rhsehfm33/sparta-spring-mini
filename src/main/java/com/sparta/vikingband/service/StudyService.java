@@ -2,6 +2,7 @@ package com.sparta.vikingband.service;
 
 import com.sparta.vikingband.dto.StudyRequestDto;
 import com.sparta.vikingband.dto.StudyResponseDto;
+import com.sparta.vikingband.dto.StudyWholeResponseDto;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.enums.ErrorMessage;
@@ -48,15 +49,16 @@ public class StudyService {
         return StudyResponseDto.of(study);
     }
 
-    @Transactional
-    public List<StudyResponseDto> getStudies() {
-        List<Study> studyList = studyRepository.findByOrderByCreatedAtDesc();
-        List<StudyResponseDto> studyResponseDtoList = studyList.stream()
-                .map(study -> StudyResponseDto.of(study))
-                .collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public StudyWholeResponseDto getStudies() {
+        StudyWholeResponseDto dto  = new StudyWholeResponseDto();
+        List<Study> studyList = studyRepository.findAll();
+        for (Study study : studyList) {
+            dto.addStudy(StudyResponseDto.of(study));
+        }
 
 
-        return studyResponseDtoList;
+        return dto;
     }
 
     public List<StudyResponseDto> getStudiesByQueryCondition(String keyword, SortType sortType) {
