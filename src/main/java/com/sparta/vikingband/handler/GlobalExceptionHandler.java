@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -47,7 +48,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<ErrorResponseDto>> handleValidationException(ValidationException e) {
         log.error(e.toString() + " occurred: {}", e.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorType.VALIDATION_EXCEPTION, e.getMessage());
-        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.INTERNAL_SERVER_ERROR, errorResponseDto);
+        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.BAD_REQUEST, errorResponseDto);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseData);
     }
 
@@ -55,7 +56,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleJwtException(JwtException e) {
         log.error(e.toString() + " occurred: {}", e.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorType.JWT_EXCEPTION, e.getMessage());
-        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.INTERNAL_SERVER_ERROR, errorResponseDto);
+        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.UNAUTHORIZED, errorResponseDto);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponseData);
     }
 
@@ -63,7 +64,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
         log.error(e.toString() + " occurred: {}", e.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorType.ILLEGAL_ARGUMENT_EXCEPTION, e.getMessage());
-        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.INTERNAL_SERVER_ERROR, errorResponseDto);
+        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.BAD_REQUEST, errorResponseDto);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseData);
     }
 
@@ -71,7 +72,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException e) {
         log.error(e.toString() + " occurred: {}", e.getMessage());
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorType.ACCESS_DENIED_EXCEPTION, e.getMessage());
-        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.INTERNAL_SERVER_ERROR, errorResponseDto);
+        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.UNAUTHORIZED, errorResponseDto);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseData);
     }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleAccessDeniedException(BadCredentialsException e) {
+        log.error(e.toString() + " occurred: {}", e.getMessage());
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(ErrorType.BAD_CREDENTIALS_EXCEPTION, e.getMessage());
+        ApiResponse<ErrorResponseDto> errorResponseData = ApiResponse.failOf(HttpStatus.UNAUTHORIZED, errorResponseDto);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseData);
+    }
+
+
 }

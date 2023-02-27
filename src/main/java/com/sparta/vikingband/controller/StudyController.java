@@ -3,8 +3,10 @@ package com.sparta.vikingband.controller;
 import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyRequestDto;
 import com.sparta.vikingband.dto.StudyResponseDto;
+import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,7 +24,7 @@ public class StudyController {
     @PostMapping
     public ApiResponse<StudyResponseDto> createStudy(
             @RequestBody @Valid StudyRequestDto studyRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         return ApiResponse.successOf(HttpStatus.CREATED, studyService.studyCreate(studyRequestDto, userDetailsImpl));
     }
@@ -37,11 +39,19 @@ public class StudyController {
         return ApiResponse.successOf(HttpStatus.OK, studyService.getStudies());
     }
 
+    @GetMapping("/queries")
+    public ApiResponse<List<StudyResponseDto>> getStudiesByQueryCondition(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "recent") SortType sortType
+    ) {
+        return ApiResponse.successOf(HttpStatus.OK, studyService.getStudiesByQueryCondition(keyword, sortType));
+    }
+
     @PutMapping("/{studyId}")
     public ApiResponse<StudyResponseDto> updateStudy(
             @PathVariable Long studyId,
             @RequestBody @Valid StudyRequestDto studyRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         return ApiResponse.successOf(HttpStatus.OK, studyService.updateStudy(studyId, studyRequestDto, userDetailsImpl));
     }
@@ -49,7 +59,7 @@ public class StudyController {
     @DeleteMapping("/{studyId}")
     public ApiResponse<StudyResponseDto> deleteStudy(
             @PathVariable Long studyId,
-            @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
         studyService.deleteStudy(studyId, userDetailsImpl);
         return ApiResponse.successOf(HttpStatus.OK, null);

@@ -42,7 +42,7 @@ public class StudyBoardCommentService {
         );
 
         StudyBoard studyBoard = studyBoardRepository.findById(studyBoardId).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND_MESSAGE.getMessage())
+                () -> new EntityNotFoundException(ErrorMessage.STUDY_BOARD_NOT_FOUND.getMessage())
         );
 
         StudyBoardComment newStudyBoardComment = new StudyBoardComment(requestDto, member, studyBoard.getStudy(), studyBoard);
@@ -62,7 +62,7 @@ public class StudyBoardCommentService {
 
 
     @Transactional
-    public StudyBoardCommentResponseDto updateComment(
+    public StudyBoardCommentResponseDto updateStudyBoardComment(
             Long studyBoardCommentId,
             StudyBoardCommentRequestDto requestDto,
             UserDetailsImpl userDetailsImpl
@@ -83,7 +83,7 @@ public class StudyBoardCommentService {
 
 
     @Transactional
-    public void deleteComment(
+    public void deleteStudyBoardComment(
             Long studyBoardCommentId,
             UserDetailsImpl userDetailsImpl
     ) {

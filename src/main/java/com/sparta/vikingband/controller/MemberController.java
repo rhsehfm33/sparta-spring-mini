@@ -1,19 +1,17 @@
 package com.sparta.vikingband.controller;
 
-import com.sparta.vikingband.dto.ApiResponse;
-import com.sparta.vikingband.dto.LoginRequestDto;
-import com.sparta.vikingband.dto.MemberOuterResponseDto;
-import com.sparta.vikingband.dto.SignupRequestDto;
+import com.sparta.vikingband.dto.*;
+import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.MemberService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +25,15 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<MemberOuterResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ApiResponse<MemberOuterResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto, @Parameter(hidden = true) HttpServletResponse response) {
         return ApiResponse.successOf(HttpStatus.OK, memberService.login(loginRequestDto, response));
+    }
+
+    @GetMapping("/details/{memberId}")
+    public ApiResponse<MemberWholeResponseDto> getMemberDetail(
+            @PathVariable Long memberId,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+    ) throws AccessDeniedException {
+        return ApiResponse.successOf(HttpStatus.OK, memberService.getMemberDetail(memberId, userDetailsImpl));
     }
 }

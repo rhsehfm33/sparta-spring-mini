@@ -4,10 +4,10 @@ import com.sparta.vikingband.dto.SignupRequestDto;
 import com.sparta.vikingband.enums.MemberRoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Entity(name = "Member")
@@ -29,24 +29,29 @@ public class Member extends Timestamped {
     @Enumerated(value = EnumType.STRING)
     private MemberRoleEnum role = MemberRoleEnum.USER;
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    @OrderBy("createdAt DESC")
+    Set<Study> studySet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyBoard> studyBoardList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    @OrderBy("createdAt DESC")
+    Set<StudyWish> studyWishSet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyRegist> studyRegistList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    @OrderBy("createdAt DESC")
+    Set<StudyRegist> studyRegistSet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<StudyWish> studyWishList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    @OrderBy("createdAt DESC")
+    Set<StudyBoard> studyBoardSet = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "member", cascade=CascadeType.REMOVE)
-    List<Study> studyList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    @OrderBy("createdAt DESC")
+    Set<StudyBoardComment> studyBoardCommentSet = new LinkedHashSet<>();
 
-    public Member(SignupRequestDto signupRequestDto) {
+    public Member(SignupRequestDto signupRequestDto, String encodedPassword) {
         this.memberName = signupRequestDto.getUsername();
-        this.password = signupRequestDto.getPassword();
+        this.password = encodedPassword;
         this.email = signupRequestDto.getEmail();
     }
 }

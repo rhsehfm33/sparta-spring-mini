@@ -4,6 +4,7 @@ import com.sparta.vikingband.jwt.JwtAuthFilter;
 import com.sparta.vikingband.jwt.JwtUtil;
 import com.sparta.vikingband.security.CustomAccessDeniedHandler;
 import com.sparta.vikingband.security.CustomAuthenticationEntryPoint;
+import com.sparta.vikingband.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -18,13 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.Arrays;
 
 @Configuration
 @RequiredArgsConstructor
@@ -35,6 +31,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     private final JwtUtil jwtUtil;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -46,6 +43,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public WebSecurityCustomizer webSecurityCustomizer() {
 
         return (web) -> web.ignoring()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
                 .requestMatchers(PathRequest.toH2Console())
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
@@ -59,8 +57,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         //회원가입, 로그인,조회까지는 security 인증 없이도 가능함
         http.authorizeRequests()
                 .antMatchers("/docs").permitAll()
-                .antMatchers("/api/members/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/studies").permitAll()
+                .antMatchers("/api/members/signup").permitAll()
+                .antMatchers("/api/members/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/studies/**").permitAll()
 //                .antMatchers(HttpMethod.GET, "/api/board/**").permitAll()
                 .anyRequest().authenticated()
                 // JWT 인증/인가를 사용하기 위한 설정
@@ -79,8 +78,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .addMapping("/**") // 프로그램에서 제공하는 URL
                 .allowedOriginPatterns("*") // 청을 허용할 출처를 명시, 전체 허용 (가능하다면 목록을 작성한다.
                 .allowedHeaders("*") // 어떤 헤더들을 허용할 것인지
+                .exposedHeaders("Authorization")
                 .allowedMethods("*") // 어떤 메서드를 허용할 것인지 (GET, POST...)
-                .allowCredentials(true); // 쿠키 요청을 허용한다(다른 도메인 서버에 인증하는 경우에만 사용해야하며, true 설정시 보안상 이슈가 발생할 수 있다)
-        // .maxAge(1500) // preflight 요청에 대한 응답을 브라우저에서 캐싱하는 시간 ;
+                .allowCredentials(true) // 쿠키 요청을 허용한다(다른 도메인 서버에 인증하는 경우에만 사용해야하며, true 설정시 보안상 이슈가 발생할 수 있다)
+                .maxAge(3600); // preflight 요청에 대한 응답을 브라우저에서 캐싱하는 시간;
     }
 }

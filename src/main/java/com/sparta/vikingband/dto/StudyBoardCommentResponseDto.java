@@ -25,7 +25,8 @@ public class StudyBoardCommentResponseDto {
         this.createdAt = studyBoardComment.getCreatedAt() == null ? LocalDateTime.now() : studyBoardComment.getCreatedAt();
         this.modifiedAt = LocalDateTime.now();
     }
-    public static StudyBoardCommentResponseDto of (StudyBoardComment studyBoardComment) {
+
+    public static StudyBoardCommentResponseDto of(StudyBoardComment studyBoardComment) {
         return new StudyBoardCommentResponseDto(studyBoardComment);
     }
 }

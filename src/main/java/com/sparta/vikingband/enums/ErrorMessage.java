@@ -3,7 +3,7 @@ package com.sparta.vikingband.enums;
 public enum ErrorMessage {
     MEMBER_NOT_FOUND("해당 사용자가 존재하지 않습니다."),
     BOARD_NOT_FOUND("해당 게시글이 존재하지 않습니다."),
-    STUDY_BOARD_NOT_FOUND_MESSAGE("해당 스터디 모임이 존재하지 않습니다."),
+    STUDY_BOARD_NOT_FOUND("해당 스터디 모임이 존재하지 않습니다."),
     COMMENT_NOT_FOUND("해당 댓글이 존재하지 않습니다."),
     REPLY_NOT_FOUND("해당 대댓글이 존재하지 않습니다."),
 
@@ -11,6 +11,7 @@ public enum ErrorMessage {
     ACCESS_DENIED("권한이 없습니다."),
 
     USERNAME_DUPLICATION("username이 중복됐습니다."),
+    WRONG_STUDY_QUERY_CONDITION("스터디 쿼리 조건이 잘못됐습니다."),
     WRONG_MIN_MAX_MEMBER("최대 인원이 최소 인원보다 적습니다."),
     WRONG_USERNAME("username이 일치하지 않습니다."),
     WRONG_ADMIN_PASSWORD("관리자 패스워드가 틀려 등록이 불가능합니다."),

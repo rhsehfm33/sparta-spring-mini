@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity(name = "Study")
@@ -29,32 +31,28 @@ public class Study extends Timestamped {
     private String imageUrl;
 
     @Column(nullable = false)
-    private int minMember;
-
-    @Column(nullable = false)
     private int maxMember;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
-    List<StudyBoardComment> studyBoardCommentList = new ArrayList<>();
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    Set<StudyBoardComment> studyBoardCommentSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
-    List<StudyBoard> studyBoardList = new ArrayList<>();
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    Set<StudyBoard> studyBoardSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
-    List<StudyRegist> studyRegistList = new ArrayList<>();
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    Set<StudyRegist> studyRegistSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "study", cascade=CascadeType.REMOVE)
-    List<StudyWish> studyWishList = new ArrayList<>();
+    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+    Set<StudyWish> studyWishSet = new HashSet<>();
 
     public Study(StudyRequestDto studyRequestDto, Member member, String imageUrl) {
         this.title = studyRequestDto.getTitle();
         this.content = studyRequestDto.getContent();
         this.subject = studyRequestDto.getSubject();
         this.imageUrl = imageUrl;
-        this.minMember = studyRequestDto.getMinMember();
         this.maxMember = studyRequestDto.getMaxMember();
         this.member = member;
     }
@@ -63,7 +61,6 @@ public class Study extends Timestamped {
         this.title = studyRequestDto.getTitle();
         this.subject = studyRequestDto.getSubject();
         this.content = studyRequestDto.getContent();
-        this.minMember = studyRequestDto.getMinMember();
         this.maxMember = studyRequestDto.getMaxMember();
     }
 }

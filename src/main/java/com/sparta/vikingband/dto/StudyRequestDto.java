@@ -21,10 +21,5 @@ public class StudyRequestDto {
     @NotNull
     @Min(2)
     @Max(100)
-    Integer minMember;
-
-    @NotNull
-    @Min(2)
-    @Max(100)
     Integer maxMember;
 }
