@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class StudyBoardResponseDto {
     private Long id;
     private Long memberId;
-    private String membername; // TODO: 네이밍 컨벤션에 따라 memberName으로
-    private String title; // TODO: 삭제
+    private String memberName;
+    private String title;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -21,8 +21,8 @@ public class StudyBoardResponseDto {
     StudyBoardResponseDto(StudyBoard studyBoard){
         this.id = studyBoard.getId();
         this.memberId =studyBoard.getMember().getId();
-        this.membername=studyBoard.getMember().getMemberName();
-        this.title=studyBoard.getStudy().getTitle();
+        this.memberName=studyBoard.getMember().getMemberName();
+        this.title=studyBoard.getTitle();
         this.content=studyBoard.getContent();
         this.createdAt = studyBoard.getCreatedAt();
         this.modifiedAt = studyBoard.getModifiedAt();

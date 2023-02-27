@@ -20,6 +20,9 @@ public class StudyBoard extends Timestamped {
         @Column(nullable = false)
         private String content;
 
+        @Column(nullable = false)
+        private String title;
+
         @ManyToOne(fetch = LAZY)
         private Study study;
 
@@ -31,6 +34,7 @@ public class StudyBoard extends Timestamped {
 
         public StudyBoard(StudyBoardRequestDto dto, Member member, Study study){
             this.content=dto.getContent();
+            this.title=dto.getTitle();
             this.member=member;
             this.study=study;
         }
