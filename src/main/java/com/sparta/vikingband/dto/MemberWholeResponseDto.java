@@ -23,7 +23,6 @@ public class MemberWholeResponseDto {
     private List<StudyBoardCommentResponseDto> myCreatedStudyBoardComments;
 
 
-    // TODO: N + 1 problem occurs. Need refactoring
     public MemberWholeResponseDto(Member member) {
         this.id = member.getId();
         this.username = member.getMemberName();

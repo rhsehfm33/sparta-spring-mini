@@ -62,10 +62,11 @@ public class StudyService {
         if (sortType.equals(SortType.WISH)) {
             return studyRepository.findAllByKeywordOrderByStudyWishSetCountDesc(keyword);
         }
-        else if (sortType.equals(SortType.CREATED_AT)){
+        else if (sortType.equals(SortType.CREATED_AT)) {
             return studyRepository.findByTitleContainingOrderByCreatedAtDesc(keyword);
         }
-            throw new IllegalArgumentException(ErrorMessage.WRONG_STUDY_QUERY_CONDITION.getMessage());
+
+        throw new IllegalArgumentException(ErrorMessage.WRONG_STUDY_QUERY_CONDITION.getMessage());
     }
 
     @Transactional
