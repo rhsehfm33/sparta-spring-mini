@@ -34,6 +34,7 @@ public class StudyBoardService {
         Study study = studyRepository.findByIdAndMemberId(studyId, userDetailsImpl.getMember().getId()).orElseThrow(
                 ()-> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
                 );
+
        StudyBoard studyBoard = studyBoardRepository.save(new StudyBoard(requestDto,userDetailsImpl.getMember(),study));
        return StudyBoardResponseDto.of(studyBoard);
     }
