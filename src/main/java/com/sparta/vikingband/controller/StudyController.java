@@ -1,9 +1,6 @@
 package com.sparta.vikingband.controller;
 
-import com.sparta.vikingband.dto.ApiResponse;
-import com.sparta.vikingband.dto.StudyRequestDto;
-import com.sparta.vikingband.dto.StudyResponseDto;
-import com.sparta.vikingband.dto.StudyWholeResponseDto;
+import com.sparta.vikingband.dto.*;
 import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyService;
@@ -12,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,6 +28,15 @@ public class StudyController {
     ) {
         return ApiResponse.successOf(HttpStatus.CREATED, studyService.studyCreate(studyRequestDto, userDetailsImpl));
     }
+    @PostMapping("/file/{studyId}")
+    public ApiResponse<ImageURLResponseDto> uploadFile(
+            @PathVariable Long studyId,
+            @RequestPart List<MultipartFile> multipartFile,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+    ) {
+        return ApiResponse.successOf(HttpStatus.CREATED, studyService.uploadFile(studyId,multipartFile,userDetailsImpl));
+    }
+
 
     @GetMapping("/{studyId}")
     public ApiResponse<StudyWholeResponseDto> getStudy(@PathVariable Long studyId) {
@@ -62,5 +69,15 @@ public class StudyController {
     ) {
         studyService.deleteStudy(studyId, userDetailsImpl);
         return ApiResponse.successOf(HttpStatus.OK, null);
+    }
+
+    //UUID로 파일이름이 랜덤으로 바뀌어서 파일이름이 고유값이기에 해당 스터디 아이디를 몰라도 파일이름으로 삭제가능
+    @DeleteMapping("/file")
+    public ApiResponse<String> deleteFile(
+            @RequestParam String fileName,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+    ) {
+        studyService.deleteFile(fileName,userDetailsImpl);
+        return ApiResponse.successOf(HttpStatus.OK,null);
     }
 }

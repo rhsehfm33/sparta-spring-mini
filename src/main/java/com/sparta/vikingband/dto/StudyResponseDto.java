@@ -11,6 +11,7 @@ public class StudyResponseDto {
     AuthorResponseDto author;
     long studyId;
     long likes;
+    String imageUrl;
     String title;
     String subject;
     String content;
@@ -23,6 +24,7 @@ public class StudyResponseDto {
         this.studyId = study.getId();
         this.likes = study.getStudyWishSet().size();
         this.title = study.getTitle();
+        this.imageUrl= study.getImageUrl();
         this.content = study.getContent();
         this.subject = study.getSubject();
         this.maxMember = study.getMaxMember();
