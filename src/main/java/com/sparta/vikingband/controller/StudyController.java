@@ -3,6 +3,7 @@ package com.sparta.vikingband.controller;
 import com.sparta.vikingband.dto.ApiResponse;
 import com.sparta.vikingband.dto.StudyRequestDto;
 import com.sparta.vikingband.dto.StudyResponseDto;
+import com.sparta.vikingband.dto.StudyWholeResponseDto;
 import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyService;
@@ -30,7 +31,7 @@ public class StudyController {
     }
 
     @GetMapping("/{studyId}")
-    public ApiResponse<StudyResponseDto> getStudy(@PathVariable Long studyId) {
+    public ApiResponse<StudyWholeResponseDto> getStudy(@PathVariable Long studyId) {
         return ApiResponse.successOf(HttpStatus.OK, studyService.getStudy(studyId));
     }
 
