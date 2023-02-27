@@ -63,4 +63,8 @@ public class Study extends Timestamped {
         this.content = studyRequestDto.getContent();
         this.maxMember = studyRequestDto.getMaxMember();
     }
+
+    public void updateURL(String imageUrl){
+        this.imageUrl=imageUrl;
+    }
 }

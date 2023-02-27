@@ -1,9 +1,6 @@
 package com.sparta.vikingband.controller;
 
-import com.sparta.vikingband.dto.ApiResponse;
-import com.sparta.vikingband.dto.StudyRequestDto;
-import com.sparta.vikingband.dto.StudyResponseDto;
-import com.sparta.vikingband.dto.StudyWholeResponseDto;
+import com.sparta.vikingband.dto.*;
 import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import com.sparta.vikingband.service.StudyService;
@@ -33,6 +30,14 @@ public class StudyController {
     ){
         return ApiResponse.successOf(HttpStatus.CREATED, studyService.studyCreate(studyRequestDto, userDetailsImpl));
     }
+    @PostMapping("/file")
+    public ApiResponse<ImageURLWholeResponseDto> uploadFile(
+            @RequestPart List<MultipartFile> multipartFile,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+    ) {
+        return ApiResponse.successOf(HttpStatus.CREATED, studyService.uploadFile(multipartFile,userDetailsImpl));
+    }
+
 
     @GetMapping("/{studyId}")
     public ApiResponse<StudyWholeResponseDto> getStudy(@PathVariable Long studyId) {
@@ -68,5 +73,14 @@ public class StudyController {
     ) {
         studyService.deleteStudy(studyId, userDetailsImpl);
         return ApiResponse.successOf(HttpStatus.OK, null);
+    }
+
+    @DeleteMapping("/file")
+    public ApiResponse<String> deleteFile(
+            @RequestParam String fileName,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
+    ) {
+        studyService.deleteFile(fileName,userDetailsImpl);
+        return ApiResponse.successOf(HttpStatus.OK,null);
     }
 }

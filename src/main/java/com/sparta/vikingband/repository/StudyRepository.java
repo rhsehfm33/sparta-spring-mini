@@ -29,8 +29,9 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
 
     Optional<Study> findById(Long studyId);
 
+    Optional<Study> findByMemberId(Long memberId);
+
     Optional<Study> findByIdAndMemberId(Long studyId, Long memberId);
-    //Optional<Study> findByMembername(String membername);
 
     Page<Study> findByOrderByCreatedAtDesc(Pageable pageable);
 

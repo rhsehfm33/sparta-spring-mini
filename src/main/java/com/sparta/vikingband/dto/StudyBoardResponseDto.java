@@ -1,6 +1,5 @@
 package com.sparta.vikingband.dto;
 
-import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyBoard;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
