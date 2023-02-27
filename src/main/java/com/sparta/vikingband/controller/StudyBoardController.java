@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/study_boards")
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class StudyBoardController {
     @PostMapping("/{studyid}")
     public ApiResponse<StudyBoardResponseDto> createStudyBoard
             (@PathVariable Long studyid,
-             @RequestBody StudyBoardRequestDto requestDto,
+             @RequestBody @Valid StudyBoardRequestDto requestDto,
              @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails)
     {
         return ApiResponse.successOf(HttpStatus.OK, studyBoardService.createStudyBoard(studyid,requestDto,userDetails));
@@ -41,7 +43,7 @@ public class StudyBoardController {
     @PutMapping("/{boardid}")
     public ApiResponse<StudyBoardResponseDto> updateStudyBoard
             (@PathVariable Long boardid,
-             @RequestBody StudyBoardRequestDto requestDto,
+             @RequestBody @Valid StudyBoardRequestDto requestDto,
              @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails)
     {
         return ApiResponse.successOf(HttpStatus.OK,studyBoardService.updateStudyBoard(boardid,requestDto,userDetails));

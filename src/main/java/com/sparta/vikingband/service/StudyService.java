@@ -33,7 +33,7 @@ public class StudyService {
                 () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
-        Study newStudy = new Study(studyRequestDto, member, null);
+        Study newStudy = new Study(studyRequestDto, member);
         studyRepository.save(newStudy);
 
         return StudyResponseDto.of(newStudy);

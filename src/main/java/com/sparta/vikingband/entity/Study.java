@@ -48,7 +48,7 @@ public class Study extends Timestamped {
     @OneToMany(mappedBy = "study", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
     Set<StudyWish> studyWishSet = new HashSet<>();
 
-    public Study(StudyRequestDto studyRequestDto, Member member, String imageUrl) {
+    public Study(StudyRequestDto studyRequestDto, Member member) {
         this.title = studyRequestDto.getTitle();
         this.content = studyRequestDto.getContent();
         this.subject = studyRequestDto.getSubject();
