@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+// 현재 사용하게 됐음
 @RestController
 @RequestMapping("/api/study_boards")
 @RequiredArgsConstructor
