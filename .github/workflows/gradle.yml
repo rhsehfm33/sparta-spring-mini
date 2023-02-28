@@ -38,7 +38,7 @@ jobs:
       with:
         arguments: build
     - name: Get Current Time
-      uses: 1466587594/get-current-time@v3
+      uses: 1466587594/get-current-time@v2
       id: current-time
       with:
           format: YYYY-MM-DDTHH:mm:ss
