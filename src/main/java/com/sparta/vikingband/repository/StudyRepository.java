@@ -33,6 +33,8 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
             " order by count(w) desc")
     List<StudyResponseDto> findAllByHottest();
 
+    List<Study> findAllByOrderByCreatedAtDesc();
+
     Optional<Study> findById(Long studyId);
 
     Optional<Study> findByMemberId(Long memberId);

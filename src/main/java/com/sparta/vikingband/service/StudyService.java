@@ -135,7 +135,7 @@ public class StudyService {
 
     @Transactional(readOnly = true)
     public List<StudyResponseDto> getStudies() {
-        List<Study> studyList = studyRepository.findAll();
+        List<Study> studyList = studyRepository.findAllByOrderByCreatedAtDesc();
 
         return studyList.stream()
                 .map(StudyResponseDto::of)

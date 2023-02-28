@@ -37,8 +37,7 @@ public class StudyController {
         return ApiResponse.successOf(HttpStatus.CREATED, studyService.uploadFile(studyId,multipartFile,userDetailsImpl));
     }
 
-
-    @GetMapping("/{studyId}")
+    @GetMapping("/details/{studyId}")
     public ApiResponse<StudyWholeResponseDto> getStudy(
             @PathVariable Long studyId,
             @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
