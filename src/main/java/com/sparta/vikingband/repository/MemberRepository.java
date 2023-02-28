@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByMemberName(String memberName);
 
+    // TODO: 베스트 프랙티스가 뭐였을까.. API 쪼개기 같다...
     @EntityGraph(attributePaths = {
             "studySet.member",
             "studySet.studyWishSet",

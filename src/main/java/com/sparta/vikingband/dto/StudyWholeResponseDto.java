@@ -19,13 +19,14 @@ public class StudyWholeResponseDto {
     String subject;
     String content;
     boolean isWished;
-    boolean isRegistered;
+    boolean isApplied;
+    boolean isApproved;
     int maxMember;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
     List<StudyBoardResponseDto> studyBoards;
 
-    public StudyWholeResponseDto(Study study, boolean isWished, boolean isRegistered) {
+    public StudyWholeResponseDto(Study study, boolean isWished, boolean isApplied, boolean isApproved) {
         this.author = AuthorResponseDto.of(study.getMember());
         this.studyId = study.getId();
         this.likes = study.getStudyWishSet().size();
@@ -33,7 +34,8 @@ public class StudyWholeResponseDto {
         this.subject = study.getSubject();
         this.content = study.getContent();
         this.isWished = isWished;
-        this.isRegistered = isRegistered;
+        this.isApplied = isApplied;
+        this.isApproved = isApproved;
         this.maxMember = study.getMaxMember();
         this.createdAt = study.getCreatedAt();
         this.modifiedAt = study.getModifiedAt();
@@ -41,7 +43,7 @@ public class StudyWholeResponseDto {
             .map(StudyBoardResponseDto::of)
             .collect(Collectors.toList());
     }
-    public static StudyWholeResponseDto of(Study study, boolean isWished, boolean isRegistered) {
-        return new StudyWholeResponseDto(study, isWished, isRegistered);
+    public static StudyWholeResponseDto of(Study study, boolean isWished, boolean isApplied, boolean isApproved) {
+        return new StudyWholeResponseDto(study, isWished, isApplied, isApproved);
     }
 }

@@ -128,9 +128,10 @@ public class StudyService {
         StudyWish studyWish = studyWishRepository.findByMemberAndStudy(member, study).orElse(null);
         StudyRegist studyRegist = studyRegistRepository.findByMemberAndStudy(member, study).orElse(null);
         boolean isWished = studyWish == null ? false : true;
-        boolean isRegistered = studyRegist == null ? false : true;
+        boolean isApplied = studyRegist == null ? false : true;
+        boolean isApproved = studyRegist == null ? false : studyRegist.isAccepted();
 
-        return StudyWholeResponseDto.of(study, isWished, isRegistered);
+        return StudyWholeResponseDto.of(study, isWished, isApplied, isApproved);
     }
 
     @Transactional(readOnly = true)

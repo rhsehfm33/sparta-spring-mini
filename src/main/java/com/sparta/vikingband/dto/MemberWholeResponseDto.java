@@ -17,6 +17,7 @@ public class MemberWholeResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private List<MyStudiesRegistMemberResponseDto> myStudiesWithRegistMembers;
+    private List<StudyResponseDto> myStudyRegists;
     private List<StudyResponseDto> myStudyWishes;
     private List<StudyResponseDto> myCreatedStudies;
     private List<StudyBoardResponseDto> myCreatedStudyBoards;
@@ -32,6 +33,9 @@ public class MemberWholeResponseDto {
         this.myStudiesWithRegistMembers = member.getStudySet().stream()
                 .map(study -> MyStudiesRegistMemberResponseDto.of(study))
                 .filter(myStudiesRegistMemberResponseDto -> myStudiesRegistMemberResponseDto.getRegistMembers().size() > 0)
+                .collect(Collectors.toList());
+        this.myStudyRegists = member.getStudyRegistSet().stream()
+                .map(studyRegist -> StudyResponseDto.of(studyRegist.getStudy()))
                 .collect(Collectors.toList());
         this.myStudyWishes = member.getStudyWishSet().stream()
                 .map(studyWish -> StudyResponseDto.of(studyWish.getStudy()))
