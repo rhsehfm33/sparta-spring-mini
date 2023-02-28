@@ -130,6 +130,7 @@ public class StudyService {
         boolean isWished = studyWish == null ? false : true;
         boolean isApplied = studyRegist == null ? false : true;
         boolean isApproved = studyRegist == null ? false : studyRegist.isAccepted();
+        isApproved = member.getId() == study.getMember().getId() ? true : isApproved;
 
         return StudyWholeResponseDto.of(study, isWished, isApplied, isApproved);
     }

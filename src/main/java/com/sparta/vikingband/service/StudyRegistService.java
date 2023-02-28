@@ -87,7 +87,7 @@ public class StudyRegistService {
 
     @Transactional
     public void approveRegist(Long studyId, Long registMemberId, UserDetailsImpl userDetails) throws AccessDeniedException {
-        Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
+        Member ownerMember = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
@@ -99,7 +99,7 @@ public class StudyRegistService {
                 () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 
-        if (member.getId() != study.getMember().getId()) {
+        if (ownerMember.getId() != study.getMember().getId()) {
             throw new AccessDeniedException(ErrorMessage.ACCESS_DENIED.getMessage());
         }
 
@@ -113,7 +113,7 @@ public class StudyRegistService {
     @Transactional
     public void denyRegist(Long studyId, Long registMemberId, UserDetailsImpl userDetails) throws AccessDeniedException {
 
-        Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
+        Member ownerMember = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
             () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
         );
 
@@ -125,7 +125,7 @@ public class StudyRegistService {
                 () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 
-        if (member.getId() != study.getMember().getId()) {
+        if (ownerMember.getId() != study.getMember().getId()) {
             throw new AccessDeniedException(ErrorMessage.ACCESS_DENIED.getMessage());
         }
 
