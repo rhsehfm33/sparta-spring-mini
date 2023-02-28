@@ -24,6 +24,7 @@ public class StudyWholeResponseDto {
     int maxMember;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
+    List<AppliedMemberResponseDto> appliedMembers;
     List<StudyBoardResponseDto> studyBoards;
 
     public StudyWholeResponseDto(Study study, boolean isWished, boolean isApplied, boolean isApproved) {
@@ -39,6 +40,9 @@ public class StudyWholeResponseDto {
         this.maxMember = study.getMaxMember();
         this.createdAt = study.getCreatedAt();
         this.modifiedAt = study.getModifiedAt();
+        this.appliedMembers = study.getStudyRegistSet().stream()
+                .map(studyRegist -> AppliedMemberResponseDto.of(studyRegist.getMember(), studyRegist.isAccepted()))
+                .collect(Collectors.toList());
         this.studyBoards = study.getStudyBoardSet().stream()
             .map(StudyBoardResponseDto::of)
             .collect(Collectors.toList());
