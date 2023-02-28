@@ -9,6 +9,11 @@ branches:
   only:
     - main
 
+#------추가부분----------
+before_script:
+  - cd viking-band-BE/
+
+
 # 빌드 전에 gradlew의 권한을 추가한다.
 before_install:
   - chmod +x gradlew
