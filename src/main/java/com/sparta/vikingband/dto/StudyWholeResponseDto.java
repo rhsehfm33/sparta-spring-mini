@@ -15,6 +15,7 @@ public class StudyWholeResponseDto {
     AuthorResponseDto author;
     long studyId;
     long likes;
+    String imageUrl;
     String title;
     String subject;
     String content;
@@ -31,6 +32,7 @@ public class StudyWholeResponseDto {
         this.author = AuthorResponseDto.of(study.getMember());
         this.studyId = study.getId();
         this.likes = study.getStudyWishSet().size();
+        this.imageUrl = study.getImageUrl();
         this.title = study.getTitle();
         this.subject = study.getSubject();
         this.content = study.getContent();
