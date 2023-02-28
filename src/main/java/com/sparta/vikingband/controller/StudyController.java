@@ -39,8 +39,11 @@ public class StudyController {
 
 
     @GetMapping("/{studyId}")
-    public ApiResponse<StudyWholeResponseDto> getStudy(@PathVariable Long studyId) {
-        return ApiResponse.successOf(HttpStatus.OK, studyService.getStudy(studyId));
+    public ApiResponse<StudyWholeResponseDto> getStudy(
+            @PathVariable Long studyId,
+            @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        return ApiResponse.successOf(HttpStatus.OK, studyService.getStudy(studyId, userDetails));
     }
 
     @GetMapping

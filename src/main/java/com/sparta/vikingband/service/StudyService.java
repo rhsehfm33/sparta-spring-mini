@@ -8,10 +8,14 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.sparta.vikingband.dto.*;
 import com.sparta.vikingband.entity.Member;
 import com.sparta.vikingband.entity.Study;
+import com.sparta.vikingband.entity.StudyRegist;
+import com.sparta.vikingband.entity.StudyWish;
 import com.sparta.vikingband.enums.ErrorMessage;
 import com.sparta.vikingband.enums.SortType;
 import com.sparta.vikingband.repository.MemberRepository;
+import com.sparta.vikingband.repository.StudyRegistRepository;
 import com.sparta.vikingband.repository.StudyRepository;
+import com.sparta.vikingband.repository.StudyWishRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +39,9 @@ import java.util.stream.Collectors;
 public class StudyService {
     private final StudyRepository studyRepository;
     private final MemberRepository memberRepository;
+    private final StudyWishRepository studyWishRepository;
+    private final StudyRegistRepository studyRegistRepository;
+
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
     private final AmazonS3 amazonS3;
@@ -109,12 +116,21 @@ public class StudyService {
     }
 
     @Transactional
-    public StudyWholeResponseDto getStudy(Long studyId) {
+    public StudyWholeResponseDto getStudy(Long studyId, UserDetailsImpl userDetails) {
+        Member member = memberRepository.findByMemberName(userDetails.getUsername()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
+        );
+
         Study study = studyRepository.findById(studyId).orElseThrow(
                 () -> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 
-        return StudyWholeResponseDto.of(study);
+        StudyWish studyWish = studyWishRepository.findByMemberAndStudy(member, study).orElse(null);
+        StudyRegist studyRegist = studyRegistRepository.findByMemberAndStudy(member, study).orElse(null);
+        boolean isWished = studyWish == null ? false : true;
+        boolean isRegistered = studyRegist == null ? false : true;
+
+        return StudyWholeResponseDto.of(study, isWished, isRegistered);
     }
 
     @Transactional(readOnly = true)

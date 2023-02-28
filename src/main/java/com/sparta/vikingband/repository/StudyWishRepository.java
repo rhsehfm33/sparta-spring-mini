@@ -41,6 +41,13 @@ public interface StudyWishRepository extends JpaRepository<StudyWish, Long> {
     List<StudyWish> findAllByMemberId(Long memberId);
 
     /**
+     * 회원이 찜한 스터디 목록 출력
+     * @param memberId
+     * @return
+     */
+    Optional<StudyWish> findByMemberId(Long memberId);
+
+    /**
      * 이미 똑같은 유저가 똑같은 스터디 신청했는지 확인
      * @param member
      * @param study
