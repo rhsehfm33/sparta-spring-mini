@@ -44,7 +44,6 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
         return (web) -> web.ignoring()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
-                .requestMatchers(PathRequest.toH2Console())
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
