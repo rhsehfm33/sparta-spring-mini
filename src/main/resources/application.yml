@@ -1,0 +1,30 @@
+cloud:
+  aws:
+    s3:
+      bucket: ''
+    credentials:
+      accessKey: ''
+      secretKey: ''
+    stack:
+      auto-: ''
+    region:
+      static: ''
+springdoc:
+  swagger-ui:
+    path: ''
+spring:
+  datasource:
+    password: ''
+    driver-class-name: ''
+    username: ''
+    url: ''
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: ''
+        show_sql: ''
+jwt:
+  secret:
+    key: ''
