@@ -15,16 +15,23 @@ springdoc:
 spring:
   datasource:
     password: ''
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name:
     username: ''
     url: ''
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: ''
         show_sql: ''
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 jwt:
   secret:
     key: ''
