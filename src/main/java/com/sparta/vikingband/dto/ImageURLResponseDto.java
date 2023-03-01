@@ -9,15 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ImageURLResponseDto {
    private String imageUrl;
-   private String memberName;
-   private Long studyId;
 
-
-   ImageURLResponseDto(Study study){
-      this.imageUrl = study.getImageUrl();
-      this.memberName = study.getMember().getMemberName();
-      this.studyId = study.getId();
+   ImageURLResponseDto(String imageUrl){
+      this.imageUrl = imageUrl;
    }
 
-   public static ImageURLResponseDto of (Study study){return new ImageURLResponseDto(study);}
+   public static ImageURLResponseDto of (String imageUrl) {
+      return new ImageURLResponseDto(imageUrl);
+   }
 }

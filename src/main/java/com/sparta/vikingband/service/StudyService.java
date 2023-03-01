@@ -49,37 +49,23 @@ public class StudyService {
     //사진 관련 메서드
     @Transactional
     public ImageURLResponseDto uploadFile(
-            Long studyId,
-            List<MultipartFile> multipartFile,
+            MultipartFile file,
             UserDetailsImpl userDetailsImpl
     ) {
-        //List<String> fileNameList = new ArrayList<>();
-        Study study = studyRepository.findByIdAndMemberId(studyId,userDetailsImpl.getMember().getId()).orElseThrow(
-                () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
-        );
-
-        //ImageURLWholeResponseDto dto = new ImageURLWholeResponseDto();
-
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
-        multipartFile.forEach(file -> {
-            String fileName = createFileName(file.getOriginalFilename());
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentLength(file.getSize());
-            objectMetadata.setContentType(file.getContentType());
+        String fileName = createFileName(file.getOriginalFilename());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(file.getSize());
+        objectMetadata.setContentType(file.getContentType());
 
-            try (InputStream inputStream = file.getInputStream()) {
-                amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-                        .withCannedAcl(CannedAccessControlList.PublicRead));
-            } catch (IOException e) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
-            }
-            study.updateURL("https://viking-band.s3.ap-northeast-2.amazonaws.com/"+fileName);
-            //dto.addImageURL(study);
-            //fileNameList.add(fileName);
-        });
-           return ImageURLResponseDto.of(study);
-         //return dto;
-        //return fileNameList;
+        try (InputStream inputStream = file.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+        }
+
+        return ImageURLResponseDto.of("https://viking-band.s3.ap-northeast-2.amazonaws.com/" + fileName);
     }
 
     @Transactional

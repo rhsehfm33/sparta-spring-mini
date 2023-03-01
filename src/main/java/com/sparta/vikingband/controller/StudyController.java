@@ -28,13 +28,12 @@ public class StudyController {
     ) {
         return ApiResponse.successOf(HttpStatus.CREATED, studyService.studyCreate(studyRequestDto, userDetailsImpl));
     }
-    @PostMapping("/file/{studyId}")
+    @PostMapping("/file")
     public ApiResponse<ImageURLResponseDto> uploadFile(
-            @PathVariable Long studyId,
-            @RequestPart List<MultipartFile> multipartFile,
+            @RequestParam MultipartFile file,
             @Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl userDetailsImpl
     ) {
-        return ApiResponse.successOf(HttpStatus.CREATED, studyService.uploadFile(studyId,multipartFile,userDetailsImpl));
+        return ApiResponse.successOf(HttpStatus.CREATED, studyService.uploadFile(file, userDetailsImpl));
     }
 
     @GetMapping("/details/{studyId}")

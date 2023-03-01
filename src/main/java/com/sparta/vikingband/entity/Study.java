@@ -52,7 +52,7 @@ public class Study extends Timestamped {
         this.title = studyRequestDto.getTitle();
         this.content = studyRequestDto.getContent();
         this.subject = studyRequestDto.getSubject();
-        this.imageUrl = imageUrl;
+        this.imageUrl = studyRequestDto.getImageUrl();
         this.maxMember = studyRequestDto.getMaxMember();
         this.member = member;
     }

@@ -18,6 +18,8 @@ public class StudyRequestDto {
     @Size(max = 255)
     String content;
 
+    String imageUrl;
+
     @NotNull
     @Min(2)
     @Max(100)
