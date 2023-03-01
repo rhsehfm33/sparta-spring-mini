@@ -15,7 +15,7 @@ springdoc:
 spring:
   datasource:
     password: ''
-    driver-class-name: ''
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: ''
     url: ''
   jpa:
