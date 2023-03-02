@@ -26,9 +26,11 @@ public class MyStudiesRegistMemberResponseDto {
         this.content = study.getContent();
         this.createdAt = study.getCreatedAt();
         this.modifiedAt = study.getModifiedAt();
-        for (StudyRegist studyRegist : study.getStudyRegistSet()) {
-            if (!studyRegist.isAccepted()) {
-                this.appliedMembers.add(MemberOuterResponseDto.of(studyRegist.getMember()));
+        if (study.getStudyRegistSet().size() != 0) {
+            for (StudyRegist studyRegist : study.getStudyRegistSet()) {
+                if (!studyRegist.isAccepted()) {
+                    this.appliedMembers.add(MemberOuterResponseDto.of(studyRegist.getMember()));
+                }
             }
         }
     }
