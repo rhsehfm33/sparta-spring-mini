@@ -16,7 +16,7 @@ public class MemberWholeResponseDto {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private List<MyStudiesRegistMemberResponseDto> myStudiesWithRegistMembers;
+    private List<MyStudiesRegistMemberResponseDto> myStudiesWithAppliedMembers;
     private List<StudyResponseDto> myStudyRegists;
     private List<StudyResponseDto> myStudyWishes;
     private List<StudyResponseDto> myCreatedStudies;
@@ -30,7 +30,7 @@ public class MemberWholeResponseDto {
         this.email = member.getEmail();
         this.createdAt = member.getCreatedAt();
         this.modifiedAt = member.getModifiedAt();
-        this.myStudiesWithRegistMembers = member.getStudySet().stream()
+        this.myStudiesWithAppliedMembers = member.getStudySet().stream()
                 .map(study -> MyStudiesRegistMemberResponseDto.of(study))
                 .collect(Collectors.toList());
         this.myStudyRegists = member.getStudyRegistSet().stream()
