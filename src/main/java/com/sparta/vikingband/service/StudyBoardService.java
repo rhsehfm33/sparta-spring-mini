@@ -8,6 +8,7 @@ import com.sparta.vikingband.entity.Study;
 import com.sparta.vikingband.entity.StudyBoard;
 import com.sparta.vikingband.enums.ErrorMessage;
 import com.sparta.vikingband.enums.MemberRoleEnum;
+import com.sparta.vikingband.repository.MemberRepository;
 import com.sparta.vikingband.repository.StudyBoardRepository;
 import com.sparta.vikingband.repository.StudyRepository;
 import com.sparta.vikingband.security.UserDetailsImpl;
@@ -23,6 +24,7 @@ import java.util.List;
 public class StudyBoardService {
         private final StudyRepository studyRepository;
         private final StudyBoardRepository studyBoardRepository;
+        private final MemberRepository memberRepository;
 
        @Transactional
        public StudyBoardResponseDto createStudyBoard
@@ -31,11 +33,15 @@ public class StudyBoardService {
                 UserDetailsImpl userDetailsImpl)
        {
        //로그인 된 유저들이 만든 특정 스터디에 게시글을 남길 때
-        Study study = studyRepository.findByIdAndMemberId(studyId, userDetailsImpl.getMember().getId()).orElseThrow(
+        Study study = studyRepository.findByStudyId(studyId).orElseThrow(
                 ()-> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
-                );
+        );
 
-       StudyBoard studyBoard = studyBoardRepository.save(new StudyBoard(requestDto,userDetailsImpl.getMember(),study));
+        Member member = memberRepository.findByMemberName(userDetailsImpl.getUsername()).orElseThrow(
+                () -> new EntityNotFoundException(ErrorMessage.MEMBER_NOT_FOUND.getMessage())
+        );
+
+       StudyBoard studyBoard = studyBoardRepository.save(new StudyBoard(requestDto, member, study));
        return StudyBoardResponseDto.of(studyBoard);
     }
 
