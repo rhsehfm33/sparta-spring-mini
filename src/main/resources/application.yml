@@ -35,5 +35,3 @@ logging:
 jwt:
   secret:
     key: ''
-
-    #test
