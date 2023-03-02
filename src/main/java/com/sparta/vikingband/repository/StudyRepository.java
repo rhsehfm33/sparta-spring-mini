@@ -37,8 +37,6 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
 
     List<Study> findAllByOrderByCreatedAtDesc();
 
-    Optional<Study> findByStudyId(Long studyId);
-
     Optional<Study> findById(Long studyId);
 
     Optional<Study> findByMemberId(Long memberId);

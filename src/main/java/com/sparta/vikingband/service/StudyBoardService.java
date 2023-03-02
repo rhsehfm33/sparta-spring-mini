@@ -33,7 +33,7 @@ public class StudyBoardService {
                 UserDetailsImpl userDetailsImpl)
        {
        //로그인 된 유저들이 만든 특정 스터디에 게시글을 남길 때
-        Study study = studyRepository.findByStudyId(studyId).orElseThrow(
+        Study study = studyRepository.findById(studyId).orElseThrow(
                 ()-> new EntityNotFoundException(ErrorMessage.STUDY_NOT_FOUND.getMessage())
         );
 
