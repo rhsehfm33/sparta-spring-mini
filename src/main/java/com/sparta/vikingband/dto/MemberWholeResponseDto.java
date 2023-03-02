@@ -32,7 +32,6 @@ public class MemberWholeResponseDto {
         this.modifiedAt = member.getModifiedAt();
         this.myStudiesWithRegistMembers = member.getStudySet().stream()
                 .map(study -> MyStudiesRegistMemberResponseDto.of(study))
-                .filter(myStudiesRegistMemberResponseDto -> myStudiesRegistMemberResponseDto.getAppliedMembers().size()> 0)
                 .collect(Collectors.toList());
         this.myStudyRegists = member.getStudyRegistSet().stream()
                 .map(studyRegist -> StudyResponseDto.of(studyRegist.getStudy()))
