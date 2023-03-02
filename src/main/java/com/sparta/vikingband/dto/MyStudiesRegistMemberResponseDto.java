@@ -18,7 +18,7 @@ public class MyStudiesRegistMemberResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private List<MemberOuterResponseDto> registMembers = new ArrayList<>();
+    private List<MemberOuterResponseDto> appliedMembers = new ArrayList<>();
 
     public MyStudiesRegistMemberResponseDto(Study study) {
         this.studyId = study.getId();
@@ -27,8 +27,8 @@ public class MyStudiesRegistMemberResponseDto {
         this.createdAt = study.getCreatedAt();
         this.modifiedAt = study.getModifiedAt();
         for (StudyRegist studyRegist : study.getStudyRegistSet()) {
-            if (studyRegist.isAccepted()) {
-                this.registMembers.add(MemberOuterResponseDto.of(studyRegist.getMember()));
+            if (!studyRegist.isAccepted()) {
+                this.appliedMembers.add(MemberOuterResponseDto.of(studyRegist.getMember()));
             }
         }
     }
