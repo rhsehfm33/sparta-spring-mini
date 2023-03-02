@@ -38,27 +38,8 @@ BE : 임민성, 김유영, 이진규, 김정규
 
 ---
 # Challenging works
-### -FE
-### -BE
 
 ---
-## -FE
-
-* project structure
-    * scope
-    * split up the work
-* file structure
-
----
-## -FE
-
-* useQuery
-* useMutation
-* response Handling
-* admin component
-
----
-## -BE
 
 * MemberWholeResponseDto
     * too many field
@@ -69,7 +50,6 @@ BE : 임민성, 김유영, 이진규, 김정규
     * wishToggle
 
 ---
-## -BE
 
 * Study
     * orderByWishNums
@@ -88,9 +68,6 @@ BE : 임민성, 김유영, 이진규, 김정규
 * HTTPS
 * S3 Images
 * AWS Memory Swapping
-
-
-
 
 ---
 
