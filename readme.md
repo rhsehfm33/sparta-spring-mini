@@ -1,24 +1,3 @@
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
-    :root {
-        --color-background : #101010;
-        --color-foreground : #FFFFFF;
-    }
-    h1{
-        font-family: 'Tilt Prism', cursive;
-        font-size: 150px;
-        color : #FF597B;
-    }
-
-    div > img{
-        height:50px;
-    }
-    a{
-        text-decoration:none !important;
-    }
-
-</style>
-
 # <a href="https://viking-band-fe.vercel.app/" style="color:#FF597B" > VIKING BAND</a>
 
 ## Team3
